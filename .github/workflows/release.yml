@@ -1,0 +1,46 @@
+name: Release
+
+# Publique um release no GitHub com uma tag de versão (ex.: v0.1.0).
+# Este workflow grava a versão no module.json, gera o module.zip e anexa os
+# dois arquivos ao release. A URL de manifesto para instalar no Foundry é:
+#   https://github.com/juninhoneiva/combatcthud/releases/latest/download/module.json
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Versão a partir da tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Atualizar module.json
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          jq --arg v "$VERSION" \
+             --arg m "https://github.com/$REPO/releases/latest/download/module.json" \
+             --arg d "https://github.com/$REPO/releases/download/$TAG/module.zip" \
+             '.version = $v | .manifest = $m | .download = $d' module.json > module.tmp.json
+          mv module.tmp.json module.json
+          cat module.json
+
+      - name: Empacotar
+        run: zip -r module.zip module.json README.md LICENSE scripts styles templates lang fonts
+
+      - name: Anexar ao release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            module.json
+            module.zip

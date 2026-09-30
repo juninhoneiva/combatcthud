@@ -1,0 +1,184 @@
+<div class="cthud-frame">
+  {{!-- Cabeçalho: arraste para mover --}}
+  <header class="cthud-header cthud-drag">
+    <div class="cthud-sunburst"></div>
+    <div class="cthud-title">
+      <span class="cthud-title-main">{{localize "COMBATCTHUD.Title"}}</span>
+      {{#if combat}}
+        <span class="cthud-title-sub">
+          {{#if combat.started}}
+            {{localize "COMBATCTHUD.Round"}} {{combat.round}}{{#if combat.currentName}} · {{combat.currentName}}{{/if}}
+          {{else}}
+            {{localize "COMBATCTHUD.NotStarted"}}
+          {{/if}}
+        </span>
+      {{/if}}
+    </div>
+    <div class="cthud-header-controls">
+      {{#if combat}}
+        {{#if isGM}}
+          {{#if combat.started}}
+            <button type="button" data-action="cthudPreviousTurn" data-tooltip="{{localize 'COMBATCTHUD.Controls.previousTurn'}}"><i class="fa-solid fa-backward-step"></i></button>
+            <button type="button" data-action="cthudNextTurn" data-tooltip="{{localize 'COMBATCTHUD.Controls.nextTurn'}}"><i class="fa-solid fa-forward-step"></i></button>
+            <button type="button" data-action="cthudNextRound" data-tooltip="{{localize 'COMBATCTHUD.Controls.nextRound'}}"><i class="fa-solid fa-forward-fast"></i></button>
+            <button type="button" data-action="cthudEndCombat" data-tooltip="{{localize 'COMBATCTHUD.Controls.endCombat'}}"><i class="fa-solid fa-flag-checkered"></i></button>
+          {{else}}
+            <button type="button" data-action="cthudStartCombat" data-tooltip="{{localize 'COMBATCTHUD.Controls.startCombat'}}"><i class="fa-solid fa-play"></i></button>
+          {{/if}}
+        {{else if combat.canEndTurn}}
+          <button type="button" class="cthud-end-turn" data-action="cthudNextTurn">{{localize "COMBATCTHUD.Controls.endTurn"}}</button>
+        {{/if}}
+      {{/if}}
+      <button type="button" data-action="cthudHide" data-tooltip="{{localize 'COMBATCTHUD.Controls.hide'}}"><i class="fa-solid fa-eye-slash"></i></button>
+    </div>
+  </header>
+
+  {{!-- Ordem de iniciativa --}}
+  {{#if combat}}
+    <section class="cthud-section {{#if collapsed.initiative}}collapsed{{/if}}">
+      <h3 class="cthud-rule" data-action="cthudToggleSection" data-section="initiative">
+        <span>{{localize "COMBATCTHUD.Sections.initiative"}}</span>
+      </h3>
+      <div class="cthud-section-body">
+        {{#if combat.turns.length}}
+          <ol class="cthud-initiative">
+            {{#each combat.turns}}
+              <li class="cthud-combatant {{#if active}}active{{/if}} {{#if defeated}}defeated{{/if}} {{#if hidden}}is-hidden{{/if}} {{#if targeted}}targeted{{/if}}"
+                  data-combatant-id="{{id}}" data-tooltip="{{name}}">
+                <div class="cthud-portrait">
+                  <img src="{{img}}" alt="{{name}}">
+                  {{#if hasGun}}<i class="cthud-gun fa-solid fa-gun" data-tooltip="{{localize 'COMBATCTHUD.GunDrawn'}}"></i>{{/if}}
+                  {{#if targeted}}<i class="cthud-target fa-solid fa-crosshairs"></i>{{/if}}
+                </div>
+                {{#if hasInitiative}}
+                  <span class="cthud-init">{{initiative}}</span>
+                {{else if owner}}
+                  <button type="button" class="cthud-init-roll" data-action="cthudRollInitiative" data-combatant-id="{{id}}" data-tooltip="{{localize 'COMBATCTHUD.Controls.rollInitiative'}}"><i class="fa-solid fa-dice-d20"></i></button>
+                {{else}}
+                  <span class="cthud-init">—</span>
+                {{/if}}
+                {{#if (ne hpPct null)}}
+                  <span class="cthud-mini-hp"><span style="width: {{hpPct}}%"></span></span>
+                {{/if}}
+              </li>
+            {{/each}}
+          </ol>
+          <p class="cthud-hint">{{localize "COMBATCTHUD.InitiativeHint"}}</p>
+        {{else}}
+          <p class="cthud-empty">{{localize "COMBATCTHUD.NoCombatants"}}</p>
+        {{/if}}
+      </div>
+    </section>
+  {{/if}}
+
+  {{!-- Investigador em foco --}}
+  {{#if actor}}
+    <section class="cthud-section cthud-actor {{#if actor.isTurn}}is-turn{{/if}} {{#if collapsed.actor}}collapsed{{/if}}">
+      <h3 class="cthud-rule" data-action="cthudToggleSection" data-section="actor">
+        <span>{{actor.name}}</span>
+      </h3>
+      <div class="cthud-section-body">
+        <div class="cthud-actor-row">
+          <div class="cthud-medallion" data-action="cthudOpenSheet" data-tooltip="{{localize 'COMBATCTHUD.OpenSheet'}}">
+            <img src="{{actor.img}}" alt="{{actor.name}}">
+          </div>
+          <div class="cthud-bars">
+            {{#each actor.bars}}
+              <div class="cthud-bar cthud-bar-{{key}}" data-tooltip="{{title}}">
+                <span class="cthud-bar-label">{{label}}</span>
+                <span class="cthud-bar-track"><span class="cthud-bar-fill" style="width: {{pct}}%"></span></span>
+                <span class="cthud-bar-value">{{value}}<small>/{{max}}</small></span>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+
+        {{#if actor.conditions.length}}
+          <div class="cthud-conditions">
+            {{#each actor.conditions}}
+              <button type="button" class="cthud-condition {{#if active}}active{{/if}}" data-action="cthudCondition" data-condition="{{id}}" data-tooltip="{{label}}">
+                {{#if img}}<img src="{{img}}" alt="{{label}}">{{else}}<i class="{{icon}}"></i>{{/if}}
+              </button>
+            {{/each}}
+          </div>
+        {{/if}}
+
+        <div class="cthud-actions">
+          {{#each actor.weapons}}
+            <button type="button" class="cthud-action cthud-weapon" data-action="cthudWeapon" data-item-id="{{id}}"
+                    data-tooltip="{{localize 'COMBATCTHUD.Actions.weaponTip'}}">
+              <img src="{{img}}" alt="">
+              <span class="cthud-action-name">{{name}}</span>
+              <span class="cthud-action-meta">{{#if skill}}{{skill}}%{{/if}}{{#if damage}} · {{damage}}{{/if}}</span>
+              <i class="cthud-action-kind fa-solid {{#if ranged}}fa-gun{{else}}fa-khanda{{/if}}"></i>
+            </button>
+          {{/each}}
+          {{#each actor.skills}}
+            <button type="button" class="cthud-action cthud-skill" data-action="cthudSkill" data-uuid="{{uuid}}">
+              <i class="{{icon}}"></i>
+              <span class="cthud-action-name">{{name}}</span>
+              <span class="cthud-action-meta">{{value}}%</span>
+            </button>
+          {{/each}}
+          <button type="button" class="cthud-action cthud-skill" data-action="cthudLuck">
+            <i class="fa-solid fa-clover"></i>
+            <span class="cthud-action-name">{{localize "COMBATCTHUD.Actions.luck"}}</span>
+          </button>
+          {{#if actor.combatant}}
+            {{#unless actor.combatant.hasInitiative}}
+              <button type="button" class="cthud-action cthud-skill" data-action="cthudRollInitiative" data-combatant-id="{{actor.combatant.id}}">
+                <i class="fa-solid fa-dice-d20"></i>
+                <span class="cthud-action-name">{{localize "COMBATCTHUD.Controls.rollInitiative"}}</span>
+              </button>
+            {{/unless}}
+            <button type="button" class="cthud-action cthud-skill {{#if actor.combatant.hasGun}}active{{/if}}" data-action="cthudToggleGun" data-combatant-id="{{actor.combatant.id}}">
+              <i class="fa-solid fa-gun"></i>
+              <span class="cthud-action-name">{{#if actor.combatant.hasGun}}{{localize "COMBATCTHUD.Actions.holsterGun"}}{{else}}{{localize "COMBATCTHUD.Actions.drawGun"}}{{/if}}</span>
+            </button>
+          {{/if}}
+        </div>
+        <p class="cthud-hint">{{localize "COMBATCTHUD.ActionsHint"}}</p>
+      </div>
+    </section>
+  {{/if}}
+
+  {{!-- Dano rápido --}}
+  {{#if damage}}
+    <section class="cthud-section cthud-damage {{#if collapsed.damage}}collapsed{{/if}}">
+      <h3 class="cthud-rule" data-action="cthudToggleSection" data-section="damage">
+        <span>{{localize "COMBATCTHUD.Sections.damage"}}</span>
+      </h3>
+      <div class="cthud-section-body">
+        <div class="cthud-damage-row">
+          <input type="text" name="cthud-damage" placeholder="{{localize 'COMBATCTHUD.Damage.placeholder'}}" autocomplete="off">
+          <button type="button" data-action="cthudDamage" data-mode="damage" data-tooltip="{{localize 'COMBATCTHUD.Damage.withArmor'}}"><i class="fa-solid fa-shield-halved"></i> {{localize "COMBATCTHUD.Damage.damage"}}</button>
+          <button type="button" data-action="cthudDamage" data-mode="direct" data-tooltip="{{localize 'COMBATCTHUD.Damage.ignoreArmor'}}"><i class="fa-solid fa-droplet"></i></button>
+          <button type="button" data-action="cthudDamage" data-mode="heal" data-tooltip="{{localize 'COMBATCTHUD.Damage.heal'}}"><i class="fa-solid fa-kit-medical"></i></button>
+        </div>
+        <p class="cthud-hint">
+          {{localize "COMBATCTHUD.Damage.targets"}}:
+          {{#if damage.targets.length}}<strong>{{#each damage.targets}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</strong>{{else}}—{{/if}}
+        </p>
+      </div>
+    </section>
+  {{/if}}
+
+  {{!-- Cards originais do sistema --}}
+  {{#if showCards}}
+    <section class="cthud-section cthud-cards-section {{#if collapsed.cards}}collapsed{{/if}}">
+      <h3 class="cthud-rule" data-action="cthudToggleSection" data-section="cards">
+        <span>{{localize "COMBATCTHUD.Sections.cards"}}{{#if cardCount}} ({{cardCount}}){{/if}}</span>
+      </h3>
+      <div class="cthud-section-body">
+        {{!-- .chat-scroll / .chat-log: o menu suspenso dos cards CoC7 procura esses contêineres --}}
+        <div class="cthud-cards chat-scroll">
+          <ol class="cthud-card-list chat-log"></ol>
+          {{#unless cardCount}}<p class="cthud-empty">{{localize "COMBATCTHUD.Cards.empty"}}</p>{{/unless}}
+        </div>
+        {{#if cardCount}}
+          <button type="button" class="cthud-link" data-action="cthudClearCards"><i class="fa-solid fa-broom"></i> {{localize "COMBATCTHUD.Cards.clear"}}</button>
+        {{/if}}
+      </div>
+    </section>
+  {{/if}}
+</div>
