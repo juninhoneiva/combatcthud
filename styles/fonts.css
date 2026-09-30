@@ -21,17 +21,24 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "CTHUD Bangers";
-  src: url("../fonts/Bangers.woff2") format("woff2");
+  font-family: "CTHUD IM Fell SC";
+  src: url("../fonts/IMFellEnglishSC.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "CTHUD Alfa Slab One";
-  src: url("../fonts/AlfaSlabOne.woff2") format("woff2");
+  font-family: "CTHUD IM Fell";
+  src: url("../fonts/IMFellEnglish.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CTHUD IM Fell";
+  src: url("../fonts/IMFellEnglish-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 @font-face {
