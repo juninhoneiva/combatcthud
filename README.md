@@ -25,6 +25,7 @@ https://github.com/juninhoneiva/combatcthud/releases/latest/download/module.json
 Ative o módulo no mundo. O HUD aparece quando existe um combate na cena.
 
 - **Shift+H** mostra ou oculta o HUD. Também há um botão nos controles de Token.
+- O botão de **recarregar** (ícone de setas) no cabeçalho refaz os dados e os cartões do HUD, inclusive os que foram dispensados.
 - Para mover o HUD, arraste pelo cabeçalho. A posição fica salva.
 - As opções ficam em **Configurações → Combat Cthulhu HUD**.
 

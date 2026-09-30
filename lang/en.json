@@ -55,6 +55,7 @@
       "endCombat": "End combat",
       "endTurn": "End turn",
       "rollInitiative": "Roll initiative",
+      "reload": "Reload HUD (rebuild cards and data)",
       "hide": "Hide HUD (Shift+H to bring it back)"
     },
     "Damage": {
@@ -78,6 +79,7 @@
       "clear": "Clear cards"
     },
     "Notify": {
+      "reloaded": "Combat HUD reloaded.",
       "hidden": "Combat HUD hidden. Press Shift+H or use the token controls button to bring it back.",
       "wrongSystem": "Combat Cthulhu HUD only works with the Call of Cthulhu 7th Edition (CoC7) system."
     },

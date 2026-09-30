@@ -2,7 +2,7 @@
   "id": "combatcthud",
   "title": "Combat Cthulhu HUD",
   "description": "HUD de combate para Call of Cthulhu 7ª Edição (sistema CoC7): ordem de iniciativa, PV/PM/SAN/Sorte, ações rápidas, dano rápido e os cards de combate do sistema jogáveis direto no HUD. Visual retrô anos 20.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     {
       "name": "juninhoneiva",
