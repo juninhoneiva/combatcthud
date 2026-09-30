@@ -167,6 +167,20 @@
   border-color: var(--cthud-gold);
 }
 
+/* ---------- Destacado numa janela do PopOut! ---------- */
+#combatcthud.cthud-popped {
+  max-height: 100vh;
+  height: 100vh;
+}
+#combatcthud.cthud-popped .cthud-frame {
+  flex: 1 1 auto;
+  height: 100%;
+  margin: 0;
+}
+#combatcthud.cthud-popped .cthud-header { cursor: default; }
+#combatcthud.cthud-popped .cthud-side { flex: 1 1 auto; width: auto; }
+#combatcthud.cthud-popped .cthud-side .cthud-cards { max-height: none; }
+
 /* ---------- Corpo em duas colunas: principal | cartões ---------- */
 #combatcthud .cthud-body {
   display: flex;

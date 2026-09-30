@@ -15,6 +15,13 @@ Hooks.once('init', () => {
     editable: [{ key: 'KeyH', modifiers: ['Shift'] }],
     onDown: () => { hud?.toggle(); return true }
   })
+
+  // Sem atalho padrão; o usuário define em Configurar Controles.
+  game.keybindings.register(MODULE_ID, 'popout', {
+    name: 'COMBATCTHUD.Keybindings.popout',
+    editable: [],
+    onDown: () => { hud?.togglePopout(); return true }
+  })
 })
 
 Hooks.once('ready', () => {
@@ -26,6 +33,7 @@ Hooks.once('ready', () => {
   game.modules.get(MODULE_ID).api = {
     hud,
     toggle: () => hud.toggle(),
+    popout: () => hud.togglePopout(),
     render: () => hud.refresh()
   }
   hud.cards.seed()
@@ -48,6 +56,16 @@ Hooks.on('getSceneControlButtons', (controls) => {
     onChange: () => hud?.toggle()
   }
 })
+
+/* -------------------------------------------- */
+/*  PopOut!                                     */
+/* -------------------------------------------- */
+
+// Ao destacar ou trazer de volta, re-renderiza para ajustar o layout
+// (janela inteira x flutuante) e o ícone do botão.
+for (const hook of ['PopOut:loaded', 'PopOut:popin']) {
+  Hooks.on(hook, (app) => { if (app === hud) hud.refresh() })
+}
 
 /* -------------------------------------------- */
 /*  Combate                                     */

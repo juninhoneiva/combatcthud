@@ -10,6 +10,7 @@ HUD de combate para **Call of Cthulhu 7ª Edição** no **Foundry VTT**. Reúne 
 
 - Foundry VTT **v13**
 - Sistema **Call of Cthulhu 7th Edition (CoC7)** 8.14 ou superior
+- Opcional: [PopOut!](https://github.com/League-of-Foundry-Developers/fvtt-module-popout), para abrir o HUD numa janela separada
 
 ## Instalação
 
@@ -92,6 +93,7 @@ Cada usuário escolhe a sua skin; mestre e jogadores podem usar skins diferentes
 - **Shift+H** mostra ou oculta o HUD. Também há um botão nos controles de Token.
 - Arraste o HUD pelo cabeçalho para mudá-lo de lugar. A posição fica salva.
 - Clique no título de uma seção para recolhê-la ou expandi-la.
+- **Janela separada**: com o módulo [PopOut!](https://github.com/League-of-Foundry-Developers/fvtt-module-popout) ativo, o botão <i>abrir em janela separada</i> no cabeçalho destaca o HUD numa janela própria, ideal para um segundo monitor. O mesmo botão o traz de volta. Também dá para definir um atalho em **Configurar Controles**.
 
 ## Configurações
 

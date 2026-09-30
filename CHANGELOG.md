@@ -2,6 +2,10 @@
 
 ## v0.2.2
 
+### Novidades
+
+- **Integração com o PopOut!**: com o módulo [PopOut!](https://github.com/League-of-Foundry-Developers/fvtt-module-popout) ativo, o cabeçalho do HUD ganha um botão para abrir o HUD numa janela separada (ótimo para um segundo monitor). O mesmo botão o traz de volta. Na janela separada, o HUD ocupa o espaço todo e os cartões se esticam. Há também um atalho de teclado opcional em **Configurar Controles**.
+
 ### Mudanças
 
 - **Cartões respeitam o tipo de rolagem**:

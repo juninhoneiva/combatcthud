@@ -56,7 +56,9 @@
       "endCombat": "End combat",
       "endTurn": "End turn",
       "rollInitiative": "Roll initiative",
-      "hide": "Hide HUD (Shift+H to bring it back)"
+      "hide": "Hide HUD (Shift+H to bring it back)",
+      "popout": "Open in a separate window (PopOut!)",
+      "popin": "Bring back to the main window"
     },
     "Damage": {
       "placeholder": "e.g. 5 or 1d6+1",
@@ -83,7 +85,8 @@
       "wrongSystem": "Combat Cthulhu HUD only works with the Call of Cthulhu 7th Edition (CoC7) system."
     },
     "Keybindings": {
-      "toggle": "Show/hide combat HUD"
+      "toggle": "Show/hide combat HUD",
+      "popout": "Pop out / pop in the HUD (PopOut!)"
     },
     "Skins": {
       "noir20": "1920s (Art Deco)",

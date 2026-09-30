@@ -23,6 +23,13 @@
           "minimum": "8.14"
         }
       }
+    ],
+    "recommends": [
+      {
+        "id": "popout",
+        "type": "module",
+        "reason": "Permite abrir o HUD de combate numa janela separada (ex.: segundo monitor)."
+      }
     ]
   },
   "esmodules": [

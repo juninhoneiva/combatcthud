@@ -56,7 +56,9 @@
       "endCombat": "Encerrar combate",
       "endTurn": "Encerrar turno",
       "rollInitiative": "Rolar iniciativa",
-      "hide": "Ocultar HUD (Shift+H para voltar)"
+      "hide": "Ocultar HUD (Shift+H para voltar)",
+      "popout": "Abrir em janela separada (PopOut!)",
+      "popin": "Trazer de volta para a janela principal"
     },
     "Damage": {
       "placeholder": "Ex.: 5 ou 1d6+1",
@@ -83,7 +85,8 @@
       "wrongSystem": "Combat Cthulhu HUD funciona apenas com o sistema Call of Cthulhu 7th Edition (CoC7)."
     },
     "Keybindings": {
-      "toggle": "Mostrar/ocultar HUD de combate"
+      "toggle": "Mostrar/ocultar HUD de combate",
+      "popout": "Destacar/trazer de volta o HUD (PopOut!)"
     },
     "Skins": {
       "noir20": "Anos 20 (Art Déco)",
