@@ -124,6 +124,9 @@ Hooks.on('updateChatMessage', (message) => hud?.cards.update(message))
 Hooks.on('deleteChatMessage', (message) => hud?.cards.remove(message.id))
 Hooks.on('clearChatLog', () => hud?.cards.clear())
 
+// Dice So Nice só revela o resultado na cópia do chat; o HUD revela a sua.
+Hooks.on('diceSoNiceRollComplete', (messageId) => hud?.cards.revealDiceSoNice(messageId))
+
 // Opcional: esconde do chat os cards que já estão no HUD.
 Hooks.on('renderChatMessageHTML', (message, html) => {
   if (!hud?.rendered || !game.combat || !getSetting('hideCardsInChat') || getSetting('maxCards') <= 0) return
