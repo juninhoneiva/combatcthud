@@ -1,0 +1,117 @@
+{
+  "COMBATCTHUD": {
+    "Title": "Combat",
+    "Round": "Round",
+    "NotStarted": "Waiting to start",
+    "NoCombatants": "No combatants in this encounter.",
+    "InitiativeHint": "Click: target · Shift+click: add target · Double click: pan · Right click: sheet",
+    "ActionsHint": "Shift+click rolls immediately, skipping the difficulty dialog.",
+    "GunDrawn": "Firearm drawn",
+    "OpenSheet": "Open sheet",
+    "Sections": {
+      "initiative": "Initiative",
+      "damage": "Quick damage",
+      "cards": "Cards"
+    },
+    "Bars": {
+      "hp": "HP",
+      "hpLong": "Hit Points",
+      "mp": "MP",
+      "mpLong": "Magic Points",
+      "san": "SAN",
+      "sanLong": "Sanity",
+      "lck": "Luck",
+      "lckLong": "Luck"
+    },
+    "Conditions": {
+      "criticalWounds": "Major wound",
+      "dying": "Dying",
+      "unconscious": "Unconscious",
+      "prone": "Prone",
+      "tempoInsane": "Temporary insanity",
+      "indefInsane": "Indefinite insanity",
+      "dead": "Dead"
+    },
+    "Success": {
+      "fumble": "Fumble",
+      "failure": "Failure",
+      "regular": "Regular",
+      "hard": "Hard",
+      "extreme": "Extreme",
+      "critical": "Critical"
+    },
+    "Actions": {
+      "weaponTip": "Attack the selected target with this weapon",
+      "luck": "Luck",
+      "drawGun": "Draw gun",
+      "holsterGun": "Holster gun"
+    },
+    "Controls": {
+      "toggle": "Show/hide combat HUD",
+      "previousTurn": "Previous turn",
+      "nextTurn": "Next turn",
+      "nextRound": "Next round",
+      "startCombat": "Begin combat",
+      "endCombat": "End combat",
+      "endTurn": "End turn",
+      "rollInitiative": "Roll initiative",
+      "hide": "Hide HUD (Shift+H to bring it back)"
+    },
+    "Damage": {
+      "placeholder": "e.g. 5 or 1d6+1",
+      "damage": "Damage",
+      "withArmor": "Apply damage (armor reduces it)",
+      "ignoreArmor": "Direct damage (ignores armor)",
+      "heal": "Heal",
+      "targets": "Apply to",
+      "empty": "Enter a damage value or formula.",
+      "invalid": "Invalid formula: {formula}",
+      "noTarget": "Target a token (T) or select an investigator.",
+      "notOwner": "You don't have permission to modify {name}.",
+      "dealt": "<strong>{name}</strong> took <strong>{value}</strong> damage (HP {hp}/{max}).",
+      "healed": "<strong>{name}</strong> recovered <strong>{value}</strong> HP (HP {hp}/{max}).",
+      "rollFlavor": "Quick damage"
+    },
+    "Cards": {
+      "empty": "CoC7 combat cards will show up here.",
+      "dismiss": "Remove from HUD",
+      "clear": "Clear cards"
+    },
+    "Notify": {
+      "hidden": "Combat HUD hidden. Press Shift+H or use the token controls button to bring it back.",
+      "wrongSystem": "Combat Cthulhu HUD only works with the Call of Cthulhu 7th Edition (CoC7) system."
+    },
+    "Keybindings": {
+      "toggle": "Show/hide combat HUD"
+    },
+    "Skins": {
+      "noir20": "1920s (Art Deco)"
+    },
+    "Settings": {
+      "enabled": {
+        "name": "Show combat HUD",
+        "hint": "Turns the HUD on or off in this browser."
+      },
+      "onlyInCombat": {
+        "name": "Only during combat",
+        "hint": "Only show the HUD while there is an active encounter on the scene."
+      },
+      "skin": {
+        "name": "Skin",
+        "hint": "HUD theme."
+      },
+      "maxCards": {
+        "name": "Cards in the HUD",
+        "hint": "How many CoC7 combat cards (attacks, dodges, damage, checks) are kept in the HUD. 0 disables."
+      },
+      "hideCardsInChat": {
+        "name": "Hide HUD cards from chat",
+        "hint": "During combat, cards shown in the HUD are hidden from the chat log. They return to the chat once they leave the HUD."
+      },
+      "playersQuickDamage": {
+        "name": "Players can use quick damage",
+        "hint": "Lets players apply damage/healing, only to actors they own."
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+/* Fontes da skin "Anos 20" — licenças em fonts/LICENSE-*.txt */
+@font-face {
+  font-family: "CTHUD Limelight";
+  src: url("../fonts/Limelight.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CTHUD Poiret One";
+  src: url("../fonts/PoiretOne.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CTHUD Special Elite";
+  src: url("../fonts/SpecialElite.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

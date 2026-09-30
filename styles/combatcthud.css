@@ -1,0 +1,564 @@
+/* ==========================================================================
+   Combat Cthulhu HUD
+   Cada skin só redefine as variáveis abaixo. Para criar uma nova skin,
+   copie o bloco `.combatcthud.skin-noir20`, troque o nome e registre-a em
+   scripts/constants.js (SKINS).
+   ========================================================================== */
+
+/* ---------- Skin: Anos 20 (Art Déco / noir) ---------- */
+.combatcthud.skin-noir20 {
+  --cthud-bg: #15110c;
+  --cthud-bg-2: #211a11;
+  --cthud-panel: rgba(38, 30, 19, 0.92);
+  --cthud-gold: #c9a24a;
+  --cthud-gold-light: #ecd08a;
+  --cthud-gold-dark: #7d6128;
+  --cthud-ink: #efe3c6;
+  --cthud-ink-dim: #b9a984;
+  --cthud-paper: #eadcb8;
+  --cthud-paper-2: #d9c79b;
+  --cthud-paper-ink: #2b2116;
+  --cthud-active: #7a1d1d;
+  --cthud-hp: #9b2226;
+  --cthud-mp: #1d4e89;
+  --cthud-san: #2d6a4f;
+  --cthud-lck: #b8892b;
+  --cthud-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+  --cthud-font-title: "CTHUD Limelight", "Limelight", Georgia, serif;
+  --cthud-font-label: "CTHUD Poiret One", "Poiret One", "Futura", sans-serif;
+  --cthud-font-body: "CTHUD Special Elite", "Special Elite", "Courier New", monospace;
+}
+
+/* ---------- Estrutura ---------- */
+#combatcthud.combatcthud {
+  position: fixed;
+  z-index: 70;
+  color: var(--cthud-ink);
+  font-family: var(--cthud-font-body);
+  font-size: 13px;
+  pointer-events: all;
+  max-height: calc(100vh - 20px);
+  display: flex;
+  flex-direction: column;
+}
+
+#combatcthud .cthud-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+  background:
+    radial-gradient(ellipse at top, rgba(201, 162, 74, 0.10), transparent 60%),
+    linear-gradient(180deg, var(--cthud-bg-2), var(--cthud-bg));
+  border: 2px solid var(--cthud-gold);
+  outline: 1px solid var(--cthud-gold-dark);
+  outline-offset: 3px;
+  box-shadow: var(--cthud-shadow);
+  margin: 4px;
+}
+
+/* Cantoneiras Art Déco */
+#combatcthud .cthud-frame::before,
+#combatcthud .cthud-frame::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--cthud-gold-light);
+  pointer-events: none;
+  z-index: 2;
+}
+#combatcthud .cthud-frame::before {
+  top: -8px; left: -8px;
+  border-right: none; border-bottom: none;
+}
+#combatcthud .cthud-frame::after {
+  bottom: -8px; right: -8px;
+  border-left: none; border-top: none;
+}
+
+#combatcthud button {
+  font-family: var(--cthud-font-label);
+  line-height: normal;
+}
+
+/* ---------- Cabeçalho ---------- */
+#combatcthud .cthud-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px 8px 12px;
+  cursor: move;
+  overflow: hidden;
+  border-bottom: 2px solid var(--cthud-gold);
+  background: linear-gradient(180deg, #2a2116, #16110b);
+  flex: none;
+}
+#combatcthud .cthud-sunburst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-conic-gradient(from 270deg at 50% 130%,
+    rgba(201, 162, 74, 0.16) 0deg 3deg, transparent 3deg 9deg);
+  -webkit-mask-image: linear-gradient(0deg, #000 20%, transparent 100%);
+  mask-image: linear-gradient(0deg, #000 20%, transparent 100%);
+}
+#combatcthud .cthud-title {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+#combatcthud .cthud-title-main {
+  font-family: var(--cthud-font-title);
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--cthud-gold-light);
+  text-shadow: 0 0 6px rgba(201, 162, 74, 0.45), 1px 1px 0 #000;
+  text-transform: uppercase;
+}
+#combatcthud .cthud-title-sub {
+  font-family: var(--cthud-font-label);
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--cthud-ink-dim);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#combatcthud .cthud-header-controls {
+  position: relative;
+  display: flex;
+  gap: 3px;
+  flex: none;
+}
+#combatcthud .cthud-header-controls button {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  color: var(--cthud-gold-light);
+  background: transparent;
+  border: 1px solid var(--cthud-gold-dark);
+  border-radius: 0;
+  transform: rotate(45deg);
+  margin: 0 3px;
+}
+#combatcthud .cthud-header-controls button > i { transform: rotate(-45deg); }
+#combatcthud .cthud-header-controls button:hover {
+  background: var(--cthud-gold);
+  color: var(--cthud-bg);
+  box-shadow: 0 0 8px var(--cthud-gold);
+}
+#combatcthud .cthud-header-controls .cthud-end-turn {
+  width: auto;
+  transform: none;
+  padding: 0 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--cthud-active);
+  border-color: var(--cthud-gold);
+}
+
+/* ---------- Seções ---------- */
+#combatcthud .cthud-section {
+  padding: 4px 10px 8px;
+  flex: none;
+}
+#combatcthud .cthud-cards-section {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+#combatcthud .cthud-cards-section > .cthud-section-body {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+#combatcthud .cthud-section.collapsed .cthud-section-body { display: none; }
+
+/* Filete Art Déco com losango */
+#combatcthud .cthud-rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 6px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  font-family: var(--cthud-font-label);
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cthud-gold);
+  user-select: none;
+}
+#combatcthud .cthud-rule::before,
+#combatcthud .cthud-rule::after {
+  content: "";
+  flex: 1;
+  height: 5px;
+  border-top: 1px solid var(--cthud-gold-dark);
+  border-bottom: 1px solid var(--cthud-gold-dark);
+}
+#combatcthud .cthud-rule span::before { content: "◆ "; font-size: 9px; vertical-align: middle; }
+#combatcthud .cthud-rule span::after { content: " ◆"; font-size: 9px; vertical-align: middle; }
+#combatcthud .cthud-section.collapsed .cthud-rule { color: var(--cthud-ink-dim); }
+#combatcthud .cthud-rule:hover { color: var(--cthud-gold-light); }
+
+#combatcthud .cthud-hint,
+#combatcthud .cthud-empty {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--cthud-ink-dim);
+  text-align: center;
+}
+#combatcthud .cthud-empty { font-style: italic; padding: 6px 0; }
+
+/* ---------- Iniciativa ---------- */
+#combatcthud .cthud-initiative {
+  list-style: none;
+  margin: 0;
+  padding: 2px 0 4px;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+}
+#combatcthud .cthud-combatant {
+  flex: none;
+  width: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+#combatcthud .cthud-combatant:hover { opacity: 1; }
+#combatcthud .cthud-portrait {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border: 2px solid var(--cthud-gold-dark);
+  background: #000;
+  clip-path: polygon(50% 0, 100% 18%, 100% 82%, 50% 100%, 0 82%, 0 18%);
+}
+#combatcthud .cthud-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  filter: sepia(0.55) contrast(1.05);
+}
+#combatcthud .cthud-combatant.active { opacity: 1; }
+#combatcthud .cthud-combatant.active .cthud-portrait {
+  border-color: var(--cthud-gold-light);
+  background: var(--cthud-gold-light);
+  box-shadow: 0 0 10px var(--cthud-gold);
+}
+#combatcthud .cthud-combatant.active .cthud-portrait img { filter: none; }
+#combatcthud .cthud-combatant.targeted .cthud-portrait { background: var(--cthud-hp); border-color: #e05a4f; }
+#combatcthud .cthud-combatant.defeated { opacity: 0.4; }
+#combatcthud .cthud-combatant.defeated .cthud-portrait img { filter: grayscale(1); }
+#combatcthud .cthud-combatant.is-hidden .cthud-portrait { border-style: dashed; }
+#combatcthud .cthud-gun,
+#combatcthud .cthud-target {
+  position: absolute;
+  font-size: 11px;
+  color: var(--cthud-gold-light);
+  text-shadow: 0 0 3px #000, 0 0 3px #000;
+}
+#combatcthud .cthud-gun { bottom: 4px; right: 5px; }
+#combatcthud .cthud-target { top: 6px; left: 50%; transform: translateX(-50%); color: #ff8f84; }
+#combatcthud .cthud-init {
+  font-family: var(--cthud-font-label);
+  font-weight: bold;
+  font-size: 11px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--cthud-ink);
+}
+#combatcthud .cthud-combatant.active .cthud-init { color: var(--cthud-gold-light); }
+#combatcthud .cthud-init-roll {
+  width: 22px;
+  height: 18px;
+  padding: 0;
+  font-size: 11px;
+  color: var(--cthud-gold-light);
+  background: var(--cthud-active);
+  border: 1px solid var(--cthud-gold-dark);
+  border-radius: 0;
+}
+#combatcthud .cthud-mini-hp {
+  width: 40px;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.6);
+}
+#combatcthud .cthud-mini-hp > span { display: block; height: 100%; background: var(--cthud-hp); }
+
+/* ---------- Investigador ---------- */
+#combatcthud .cthud-actor.is-turn .cthud-rule { color: var(--cthud-gold-light); text-shadow: 0 0 6px var(--cthud-gold); }
+#combatcthud .cthud-actor-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+#combatcthud .cthud-medallion {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  padding: 3px;
+  border-radius: 50%;
+  background: conic-gradient(var(--cthud-gold-light), var(--cthud-gold-dark), var(--cthud-gold-light), var(--cthud-gold-dark), var(--cthud-gold-light));
+  cursor: pointer;
+  box-shadow: 0 0 0 2px var(--cthud-bg), 0 0 0 3px var(--cthud-gold-dark);
+}
+#combatcthud .cthud-medallion img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--cthud-bg);
+  object-fit: cover;
+  filter: sepia(0.35);
+}
+#combatcthud .cthud-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+#combatcthud .cthud-bar {
+  display: grid;
+  grid-template-columns: 36px 1fr 52px;
+  align-items: center;
+  gap: 6px;
+}
+#combatcthud .cthud-bar-label {
+  font-family: var(--cthud-font-label);
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--cthud-gold);
+}
+#combatcthud .cthud-bar-track {
+  position: relative;
+  height: 11px;
+  background: #0b0906;
+  border: 1px solid var(--cthud-gold-dark);
+  box-shadow: inset 0 1px 3px #000;
+  overflow: hidden;
+}
+#combatcthud .cthud-bar-track::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 9%, rgba(0, 0, 0, 0.45) 9% 10%);
+}
+#combatcthud .cthud-bar-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 55%), var(--cthud-bar-color, var(--cthud-gold));
+  transition: width 0.4s ease;
+}
+#combatcthud .cthud-bar-hp { --cthud-bar-color: var(--cthud-hp); }
+#combatcthud .cthud-bar-mp { --cthud-bar-color: var(--cthud-mp); }
+#combatcthud .cthud-bar-san { --cthud-bar-color: var(--cthud-san); }
+#combatcthud .cthud-bar-lck { --cthud-bar-color: var(--cthud-lck); }
+#combatcthud .cthud-bar-value {
+  text-align: right;
+  font-size: 13px;
+  color: var(--cthud-ink);
+}
+#combatcthud .cthud-bar-value small { color: var(--cthud-ink-dim); font-size: 10px; }
+
+#combatcthud .cthud-conditions {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 8px 0 2px;
+}
+#combatcthud .cthud-condition {
+  width: 26px;
+  height: 26px;
+  padding: 2px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--cthud-gold-dark);
+  border-radius: 0;
+  color: var(--cthud-ink-dim);
+  opacity: 0.45;
+}
+#combatcthud .cthud-condition img { width: 100%; height: 100%; border: none; filter: grayscale(1); }
+#combatcthud .cthud-condition.active {
+  opacity: 1;
+  border-color: #e05a4f;
+  background: var(--cthud-active);
+  color: #fff;
+  box-shadow: 0 0 6px rgba(224, 90, 79, 0.7);
+}
+#combatcthud .cthud-condition.active img { filter: none; }
+
+#combatcthud .cthud-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-top: 8px;
+}
+#combatcthud .cthud-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  height: 30px;
+  padding: 2px 6px;
+  text-align: left;
+  color: var(--cthud-ink);
+  background: linear-gradient(180deg, rgba(201, 162, 74, 0.12), rgba(0, 0, 0, 0.25));
+  border: 1px solid var(--cthud-gold-dark);
+  border-radius: 0;
+  font-family: var(--cthud-font-body);
+  font-size: 12px;
+}
+#combatcthud .cthud-weapon { grid-column: span 2; }
+#combatcthud .cthud-action:hover {
+  border-color: var(--cthud-gold-light);
+  background: linear-gradient(180deg, rgba(201, 162, 74, 0.35), rgba(0, 0, 0, 0.2));
+  box-shadow: 0 0 6px rgba(201, 162, 74, 0.5);
+}
+#combatcthud .cthud-action.active { border-color: var(--cthud-gold-light); background: var(--cthud-active); }
+#combatcthud .cthud-action img { width: 22px; height: 22px; border: none; flex: none; }
+#combatcthud .cthud-action > i { color: var(--cthud-gold); width: 16px; text-align: center; flex: none; }
+#combatcthud .cthud-action-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#combatcthud .cthud-action-meta {
+  flex: none;
+  font-family: var(--cthud-font-label);
+  font-weight: bold;
+  color: var(--cthud-gold-light);
+}
+#combatcthud .cthud-action-kind { opacity: 0.6; }
+
+/* ---------- Dano rápido ---------- */
+#combatcthud .cthud-damage-row {
+  display: flex;
+  gap: 4px;
+}
+#combatcthud .cthud-damage-row input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  padding: 0 8px;
+  font-family: var(--cthud-font-body);
+  font-size: 14px;
+  color: var(--cthud-paper-ink);
+  background: var(--cthud-paper);
+  border: 1px solid var(--cthud-gold);
+  border-radius: 0;
+}
+#combatcthud .cthud-damage-row button {
+  flex: none;
+  height: 30px;
+  padding: 0 8px;
+  color: var(--cthud-ink);
+  background: var(--cthud-active);
+  border: 1px solid var(--cthud-gold-dark);
+  border-radius: 0;
+  font-weight: bold;
+}
+#combatcthud .cthud-damage-row button[data-mode="heal"] { background: var(--cthud-san); }
+#combatcthud .cthud-damage-row button:hover { border-color: var(--cthud-gold-light); box-shadow: 0 0 6px rgba(201, 162, 74, 0.5); }
+
+/* ---------- Cards do sistema (papel envelhecido) ---------- */
+#combatcthud .cthud-cards {
+  position: relative;
+  overflow-y: auto;
+  max-height: 45vh;
+  padding: 6px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(120, 80, 30, 0.18), transparent 50%),
+    linear-gradient(180deg, var(--cthud-paper), var(--cthud-paper-2));
+  border: 1px solid var(--cthud-gold-dark);
+  box-shadow: inset 0 0 18px rgba(80, 50, 10, 0.45);
+  color: var(--cthud-paper-ink);
+}
+#combatcthud .cthud-cards .cthud-empty { color: #6b5a3a; }
+#combatcthud .cthud-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: visible;
+  height: auto;
+}
+#combatcthud .cthud-card-list > .chat-message {
+  position: relative;
+  margin: 0;
+  padding: 6px 8px;
+  color: var(--cthud-paper-ink);
+  background: rgba(255, 250, 235, 0.55);
+  border: 1px solid #8a6d3b;
+  border-radius: 0;
+  box-shadow: 1px 2px 4px rgba(60, 40, 10, 0.35);
+  font-family: var(--cthud-font-body);
+}
+#combatcthud .cthud-card-list > .chat-message:first-child {
+  border-color: var(--cthud-active);
+  box-shadow: 0 0 0 1px var(--cthud-active), 1px 2px 6px rgba(60, 40, 10, 0.45);
+}
+#combatcthud .cthud-card-list .message-header .message-metadata { display: none; }
+#combatcthud .cthud-card-list .message-sender { font-family: var(--cthud-font-label); font-weight: bold; }
+#combatcthud .cthud-card-dismiss {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 3;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  line-height: 1;
+  color: #6b5a3a;
+  background: transparent;
+  border: none;
+}
+#combatcthud .cthud-card-dismiss:hover { color: var(--cthud-active); }
+#combatcthud .cthud-link {
+  align-self: center;
+  margin-top: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  color: var(--cthud-ink-dim);
+  background: transparent;
+  border: none;
+}
+#combatcthud .cthud-link:hover { color: var(--cthud-gold-light); }
+
+/* Rolagem com barra discreta */
+#combatcthud .cthud-cards,
+#combatcthud .cthud-initiative { scrollbar-width: thin; scrollbar-color: var(--cthud-gold-dark) transparent; }
+
+/* ---------- Esconder no chat (opção) ---------- */
+.chat-message.cthud-hidden-in-chat { display: none !important; }

@@ -1,0 +1,117 @@
+{
+  "COMBATCTHUD": {
+    "Title": "Combate",
+    "Round": "Rodada",
+    "NotStarted": "Aguardando início",
+    "NoCombatants": "Nenhum combatente no encontro.",
+    "InitiativeHint": "Clique: alvo · Shift+clique: somar alvo · Duplo clique: centralizar · Botão direito: ficha",
+    "ActionsHint": "Shift+clique rola direto, sem janela de dificuldade.",
+    "GunDrawn": "Arma de fogo em punho",
+    "OpenSheet": "Abrir ficha",
+    "Sections": {
+      "initiative": "Iniciativa",
+      "damage": "Dano rápido",
+      "cards": "Cartões"
+    },
+    "Bars": {
+      "hp": "PV",
+      "hpLong": "Pontos de Vida",
+      "mp": "PM",
+      "mpLong": "Pontos de Magia",
+      "san": "SAN",
+      "sanLong": "Sanidade",
+      "lck": "Sorte",
+      "lckLong": "Sorte"
+    },
+    "Conditions": {
+      "criticalWounds": "Ferimento grave",
+      "dying": "Morrendo",
+      "unconscious": "Inconsciente",
+      "prone": "Caído",
+      "tempoInsane": "Insanidade temporária",
+      "indefInsane": "Insanidade indefinida",
+      "dead": "Morto"
+    },
+    "Success": {
+      "fumble": "Desastre",
+      "failure": "Falha",
+      "regular": "Normal",
+      "hard": "Difícil",
+      "extreme": "Extremo",
+      "critical": "Crítico"
+    },
+    "Actions": {
+      "weaponTip": "Atacar o alvo selecionado com esta arma",
+      "luck": "Sorte",
+      "drawGun": "Sacar arma",
+      "holsterGun": "Guardar arma"
+    },
+    "Controls": {
+      "toggle": "Mostrar/ocultar HUD de combate",
+      "previousTurn": "Turno anterior",
+      "nextTurn": "Próximo turno",
+      "nextRound": "Próxima rodada",
+      "startCombat": "Iniciar combate",
+      "endCombat": "Encerrar combate",
+      "endTurn": "Encerrar turno",
+      "rollInitiative": "Rolar iniciativa",
+      "hide": "Ocultar HUD (Shift+H para voltar)"
+    },
+    "Damage": {
+      "placeholder": "Ex.: 5 ou 1d6+1",
+      "damage": "Dano",
+      "withArmor": "Aplicar dano (desconta armadura)",
+      "ignoreArmor": "Dano direto (ignora armadura)",
+      "heal": "Curar",
+      "targets": "Aplicar em",
+      "empty": "Informe um valor ou fórmula de dano.",
+      "invalid": "Fórmula inválida: {formula}",
+      "noTarget": "Selecione um alvo (T sobre o token) ou um investigador.",
+      "notOwner": "Você não tem permissão para alterar {name}.",
+      "dealt": "<strong>{name}</strong> sofreu <strong>{value}</strong> de dano (PV {hp}/{max}).",
+      "healed": "<strong>{name}</strong> recuperou <strong>{value}</strong> PV (PV {hp}/{max}).",
+      "rollFlavor": "Dano rápido"
+    },
+    "Cards": {
+      "empty": "Os cartões de combate do CoC7 aparecerão aqui.",
+      "dismiss": "Remover do HUD",
+      "clear": "Limpar cartões"
+    },
+    "Notify": {
+      "hidden": "HUD de combate oculto. Use Shift+H ou o botão nos controles de token para reabrir.",
+      "wrongSystem": "Combat Cthulhu HUD funciona apenas com o sistema Call of Cthulhu 7th Edition (CoC7)."
+    },
+    "Keybindings": {
+      "toggle": "Mostrar/ocultar HUD de combate"
+    },
+    "Skins": {
+      "noir20": "Anos 20 (Art Déco)"
+    },
+    "Settings": {
+      "enabled": {
+        "name": "Exibir HUD de combate",
+        "hint": "Liga ou desliga o HUD neste navegador."
+      },
+      "onlyInCombat": {
+        "name": "Somente durante combate",
+        "hint": "Exibe o HUD apenas quando houver um encontro ativo na cena."
+      },
+      "skin": {
+        "name": "Visual",
+        "hint": "Tema do HUD."
+      },
+      "maxCards": {
+        "name": "Cartões no HUD",
+        "hint": "Quantos cartões de combate do CoC7 (ataques, esquivas, dano, testes) ficam no HUD. 0 desativa."
+      },
+      "hideCardsInChat": {
+        "name": "Esconder do chat os cartões exibidos no HUD",
+        "hint": "Durante o combate, os cartões que estão no HUD não aparecem no chat. Ao sair do HUD, eles voltam ao chat."
+      },
+      "playersQuickDamage": {
+        "name": "Jogadores podem usar o dano rápido",
+        "hint": "Permite que jogadores apliquem dano/cura, apenas em atores que eles controlam."
+      }
+    }
+  }
+}
