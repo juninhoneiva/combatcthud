@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.2.0
+
+### Novidades
+
+- **Nova skin Pulp**, no visual de capa de revista pulp dos anos 30:
+  - papel jornal com retícula, contorno preto grosso e sombras duras;
+  - título "COMBATE!" em estilo quadrinho e faixas inclinadas nos títulos de seção;
+  - retrato do investigador numa "explosão" amarela e botões que afundam ao clicar;
+  - arma sem munição "tremendo".
+- Para trocar de skin: **Configurações → Combat Cthulhu HUD → Visual**. É por usuário, então cada jogador escolhe a sua.
+
 ## v0.1.1
 
 ### Novidades

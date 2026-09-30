@@ -2,7 +2,7 @@
 
 HUD de combate para **Foundry VTT v13** com o sistema **Call of Cthulhu 7th Edition (CoC7) 8.14+**, com visual retrô dos anos 20 (Art Déco).
 
-<img src="docs/preview.png" width="380" alt="Prévia do HUD (dados fictícios)">
+<img src="docs/preview.png" width="360" alt="Skin Anos 20 (dados fictícios)"> <img src="docs/preview-pulp.png" width="360" alt="Skin Pulp (dados fictícios)">
 
 ## O que faz
 
@@ -12,7 +12,7 @@ HUD de combate para **Foundry VTT v13** com o sistema **Call of Cthulhu 7th Edit
 - **Dano rápido**: aceita um valor fixo ou uma fórmula (`1d6+1`). Aplica dano com armadura, dano direto ou cura nos alvos selecionados, usando a lógica do CoC7 (ferimento grave, morte etc.).
 - **Cartões do sistema no HUD**: os cartões de combate que o CoC7 envia ao chat aparecem no HUD e **funcionam lá**. Isso vale para ataque corpo a corpo e à distância, esquivar/revidar/manobra, rolar dano, gastar sorte, forçar teste, testes de SAN/CON e testes opostos. Opcionalmente, eles podem ser escondidos do chat.
 - Mestre e jogadores usam o HUD. Cada jogador vê o próprio investigador, e os PNJs aparecem só com nome e retrato.
-- Sistema de **skins**: por enquanto só existe "Anos 20". Novas skins são só um bloco de variáveis CSS.
+- **Skins**: **Anos 20** (Art Déco) e **Pulp** (revista dos anos 30). Cada usuário escolhe a sua em Configurações → Combat Cthulhu HUD → Visual.
 
 ## Instalação
 
@@ -47,8 +47,9 @@ Para publicar manualmente, use **Actions → Release → Run workflow**. Se o re
 
 ## Nova skin
 
-1. Em `styles/combatcthud.css`, copie o bloco `.combatcthud.skin-noir20 { ... }` com o nome da nova skin, por exemplo `skin-pulp`, e troque as cores e as fontes.
-2. Em `scripts/constants.js`, adicione a skin em `SKINS` e crie a tradução em `lang/*.json` (`COMBATCTHUD.Skins.<id>`).
+1. Crie `styles/skin-<id>.css`. Use `styles/skin-pulp.css` como modelo: redefina as variáveis em `.combatcthud.skin-<id>` e, se quiser mudar formas, sobrescreva os seletores com `#combatcthud.skin-<id> ...`.
+2. Adicione o arquivo em `module.json` → `styles`.
+3. Registre a skin em `SKINS`, em `scripts/constants.js`, e crie a tradução em `lang/*.json` (`COMBATCTHUD.Skins.<id>`).
 
 ## Estrutura
 
@@ -65,4 +66,4 @@ lang/                 pt-BR e en
 
 ## Créditos
 
-Fontes: Limelight e Poiret One (SIL OFL 1.1) e Special Elite (Apache 2.0).
+Fontes: Limelight, Poiret One, Bangers e Alfa Slab One (SIL OFL 1.1) e Special Elite (Apache 2.0).

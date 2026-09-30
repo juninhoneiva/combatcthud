@@ -35,11 +35,12 @@ export const CONDITIONS = [
 export const BARS = ['hp', 'mp', 'san', 'lck']
 
 /**
- * Skins disponíveis. Para adicionar uma nova, crie o bloco de variáveis
- * `.combatcthud.skin-<id>` em styles/combatcthud.css e registre aqui.
+ * Skins disponíveis. Para adicionar uma nova, crie styles/skin-<id>.css
+ * (veja skin-pulp.css), inclua-o em module.json > styles e registre aqui.
  */
 export const SKINS = {
-  noir20: 'COMBATCTHUD.Skins.noir20'
+  noir20: 'COMBATCTHUD.Skins.noir20',
+  pulp: 'COMBATCTHUD.Skins.pulp'
 }
 
 /**
