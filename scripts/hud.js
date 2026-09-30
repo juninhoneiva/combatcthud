@@ -15,7 +15,7 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
       positioned: true
     },
     position: {
-      width: 380,
+      width: 'auto',
       height: 'auto'
     },
     actions: {
@@ -114,7 +114,8 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
       .filter(c => c.visible)
       .map(c => {
         const token = c.token?.object
-        const showHp = isGM || c.isOwner
+        // PV: o mestre vê todos; o jogador só vê os atores que controla.
+        const showHp = isGM || !!c.actor?.isOwner
         const hp = c.actor?.system?.attribs?.hp
         return {
           id: c.id,
@@ -419,13 +420,12 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
       lines.push({ actor, text: game.i18n.format(key, { name: actor.name, value: Math.abs(after - before), hp: after, max: actor.system.attribs?.hp?.max ?? '?' }) })
     }
     if (!lines.length) return
-    const publicLines = lines.filter(l => l.actor.hasPlayerOwner)
-    const secretLines = lines.filter(l => !l.actor.hasPlayerOwner)
-    if (publicLines.length) {
-      await ChatMessage.create({ content: publicLines.map(l => `<p>${l.text}</p>`).join(''), speaker: ChatMessage.getSpeaker({ user: game.user }) })
-    }
-    if (secretLines.length) {
-      await ChatMessage.create({ content: secretLines.map(l => `<p>${l.text}</p>`).join(''), speaker: ChatMessage.getSpeaker({ user: game.user }), whisper: ChatMessage.getWhisperRecipients('GM').map(u => u.id) })
+    // Cada resultado (com PV) vai só para o mestre e para os donos do ator.
+    for (const { actor, text } of lines) {
+      const whisper = game.users
+        .filter(u => u.isGM || actor.testUserPermission(u, 'OWNER'))
+        .map(u => u.id)
+      await ChatMessage.create({ content: `<p>${text}</p>`, speaker: ChatMessage.getSpeaker({ user: game.user }), whisper })
     }
     if (input) input.value = ''
   }
