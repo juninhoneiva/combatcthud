@@ -26,8 +26,7 @@ Hooks.once('ready', () => {
   game.modules.get(MODULE_ID).api = {
     hud,
     toggle: () => hud.toggle(),
-    render: () => hud.refresh(),
-    reload: () => hud.reload()
+    render: () => hud.refresh()
   }
   hud.cards.seed()
 })

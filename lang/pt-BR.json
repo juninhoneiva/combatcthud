@@ -55,7 +55,6 @@
       "endCombat": "Encerrar combate",
       "endTurn": "Encerrar turno",
       "rollInitiative": "Rolar iniciativa",
-      "reload": "Recarregar HUD (refaz cartões e dados)",
       "hide": "Ocultar HUD (Shift+H para voltar)"
     },
     "Damage": {
@@ -79,7 +78,6 @@
       "clear": "Limpar cartões"
     },
     "Notify": {
-      "reloaded": "HUD de combate recarregado.",
       "hidden": "HUD de combate oculto. Use Shift+H ou o botão nos controles de token para reabrir.",
       "wrongSystem": "Combat Cthulhu HUD funciona apenas com o sistema Call of Cthulhu 7th Edition (CoC7)."
     },

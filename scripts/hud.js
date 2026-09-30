@@ -20,7 +20,6 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
     },
     actions: {
       cthudToggleSection: CombatCthulhuHUD.#onToggleSection,
-      cthudReload: CombatCthulhuHUD.#onReload,
       cthudHide: CombatCthulhuHUD.#onHide,
       cthudPreviousTurn: CombatCthulhuHUD.#onPreviousTurn,
       cthudNextTurn: CombatCthulhuHUD.#onNextTurn,
@@ -65,17 +64,6 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
   #refresh () {
     if (this.shouldShow) this.render({ force: true })
     else if (this.rendered) this.close({ animate: false })
-  }
-
-  /**
-   * Recarrega o HUD: refaz os cartões a partir do chat (inclusive os
-   * dispensados) e renderiza tudo de novo com os dados atuais.
-   */
-  async reload () {
-    this.hiddenByUser = false
-    this.cards.dismissed.clear()
-    await this.cards.seed()
-    if (this.shouldShow) await this.render({ force: true })
   }
 
   toggle () {
@@ -284,11 +272,6 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
     collapsed[section] = !collapsed[section]
     await setSetting('collapsed', collapsed)
     this.render()
-  }
-
-  static async #onReload () {
-    await this.reload()
-    ui.notifications.info('COMBATCTHUD.Notify.reloaded', { localize: true })
   }
 
   static #onHide () {
