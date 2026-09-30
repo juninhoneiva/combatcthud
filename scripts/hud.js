@@ -18,7 +18,11 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
       width: 'auto',
       height: 'auto'
     },
+    // O PopOut! não põe o botão dele (o HUD não tem barra de título); o HUD
+    // tem um botão próprio que usa a API do PopOut!.
+    popOutModuleDisable: true,
     actions: {
+      cthudPopout: CombatCthulhuHUD.#onPopout,
       cthudToggleSection: CombatCthulhuHUD.#onToggleSection,
       cthudHide: CombatCthulhuHUD.#onHide,
       cthudPreviousTurn: CombatCthulhuHUD.#onPreviousTurn,
@@ -65,6 +69,42 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
   #refresh () {
     if (this.shouldShow) this.render({ force: true })
     else if (this.rendered) this.close({ animate: false })
+  }
+
+  /* -------------------------------------------- */
+  /*  PopOut! (módulo "popout")                   */
+  /* -------------------------------------------- */
+
+  /** API do PopOut!, se o módulo estiver ativo. */
+  static get popoutApi () {
+    if (!game.modules.get('popout')?.active) return null
+    // eslint-disable-next-line no-undef
+    return typeof PopoutModule !== 'undefined' ? PopoutModule : null
+  }
+
+  /** Janela do PopOut! onde o HUD está, se estiver destacado. */
+  get popoutWindow () {
+    const win = CombatCthulhuHUD.popoutApi?.singleton?.poppedOut?.get(this.id)?.window
+    return win && !win.closed ? win : null
+  }
+
+  get isPoppedOut () {
+    return !!this.popoutWindow
+  }
+
+  /** Destaca o HUD numa janela separada, ou traz de volta. */
+  togglePopout () {
+    const api = CombatCthulhuHUD.popoutApi
+    if (!api || !this.rendered) return
+    const win = this.popoutWindow
+    if (win) {
+      // Mesmo caminho do botão "Pop In" do PopOut!: fecha a janela e
+      // re-renderiza o HUD na janela principal.
+      win._popout_dont_close = true
+      win.close()
+    } else {
+      api.popoutApp(this)
+    }
   }
 
   toggle () {
@@ -168,6 +208,9 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
       damage: this.canQuickDamage
         ? { targets: this.#damageTargets().map(a => a.name) }
         : null,
+      popout: CombatCthulhuHUD.popoutApi
+        ? { active: this.isPoppedOut }
+        : null,
       cardCount: this.cards.order.length,
       showCards: getSetting('maxCards') > 0
     }
@@ -187,6 +230,7 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
     const el = this.element
     for (const cls of [...el.classList]) if (cls.startsWith('skin-')) el.classList.remove(cls)
     el.classList.add(`skin-${context.skin}`)
+    el.classList.toggle('cthud-popped', this.isPoppedOut)
 
     // Cards do sistema: reaproveita os elementos já renderizados.
     const list = el.querySelector('.cthud-card-list')
@@ -213,7 +257,8 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
       })
     })
 
-    this.#bindDrag()
+    // Numa janela do PopOut! o HUD ocupa a janela toda: sem arrastar.
+    if (!this.isPoppedOut) this.#bindDrag()
     this.#bindInitiative()
   }
 
@@ -283,6 +328,10 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
     collapsed[section] = !collapsed[section]
     await setSetting('collapsed', collapsed)
     this.render()
+  }
+
+  static #onPopout () {
+    this.togglePopout()
   }
 
   static #onHide () {

@@ -56,7 +56,9 @@
       "endCombat": "End combat",
       "endTurn": "End turn",
       "rollInitiative": "Roll initiative",
-      "hide": "Hide HUD (Shift+H to bring it back)"
+      "hide": "Hide HUD (Shift+H to bring it back)",
+      "popout": "Open in a separate window (PopOut!)",
+      "popin": "Bring back to the main window"
     },
     "Damage": {
       "placeholder": "e.g. 5 or 1d6+1",
@@ -83,7 +85,8 @@
       "wrongSystem": "Combat Cthulhu HUD only works with the Call of Cthulhu 7th Edition (CoC7) system."
     },
     "Keybindings": {
-      "toggle": "Show/hide combat HUD"
+      "toggle": "Show/hide combat HUD",
+      "popout": "Pop out / pop in the HUD (PopOut!)"
     },
     "Skins": {
       "noir20": "1920s (Art Deco)",
@@ -107,6 +110,13 @@
         "name": "Cards in the HUD",
         "hint": "How many CoC7 combat cards (attacks, dodges, damage, checks) are kept in the HUD. 0 disables."
       },
+      "clearCards": {
+        "name": "Clear HUD cards",
+        "hint": "When to remove old cards from the HUD, keeping only the current play. The chat keeps all of them.",
+        "round": "Every round",
+        "turn": "Every turn",
+        "never": "Never"
+      },
       "hideCardsInChat": {
         "name": "Hide HUD cards from chat",
         "hint": "During combat, cards shown in the HUD are hidden from the chat log. They return to the chat once they leave the HUD."
@@ -119,6 +129,11 @@
     "Reload": {
       "alreadyFull": "{weapon} is already fully loaded.",
       "done": "<strong>{name}</strong> reloads <strong>{weapon}</strong> ({ammo}/{bullets})."
+    },
+    "RollModes": {
+      "private": "Private",
+      "blind": "Blind",
+      "self": "Self"
     }
   }
 }
