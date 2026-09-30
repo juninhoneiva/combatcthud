@@ -62,14 +62,14 @@ Os cartões de combate que o CoC7 envia ao chat aparecem numa coluna à direita 
 - rolar dano, gastar sorte e forçar teste;
 - testes de SAN, de CON e opostos.
 
-Os cartões respeitam o tipo de rolagem:
+Os cartões respeitam o tipo de rolagem (o mestre sempre vê tudo):
 
 | Rolagem | Quem vê no HUD |
 | --- | --- |
 | Pública | Todos, com os resultados dos dados abertos |
 | Privada | O mestre e quem rolou |
 | Cega | O mestre; quem rolou vê o cartão sem os resultados |
-| Só para mim | Apenas quem rolou (nem o mestre) |
+| Só para mim | O mestre e quem rolou |
 
 A cada rodada o HUD limpa os cartões antigos e fica só com os da jogada atual. No chat eles continuam todos. Opcionalmente, os cartões exibidos no HUD podem ser escondidos do chat.
 

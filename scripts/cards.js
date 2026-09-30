@@ -23,11 +23,16 @@ const MODE_BADGES = {
  * (esquivar, revidar, rolar dano, gastar sorte...), então o elemento que o HUD
  * exibe é tão funcional quanto o do chat.
  *
- * O HUD respeita o tipo de rolagem de cada card:
+ * O HUD respeita o tipo de rolagem de cada card (o mestre sempre vê tudo):
  *   - pública: todos veem, com os resultados dos dados abertos;
  *   - privada (mestre): só o mestre e quem rolou;
  *   - cega: o mestre vê tudo; quem rolou vê o card sem os resultados;
- *   - só para mim: só quem rolou.
+ *   - só para mim: o mestre e quem rolou.
+ *
+ * Dice So Nice: enquanto os dados 3D rolam, o DSN esconde o resultado
+ * (classe .dsn-hide) e, ao terminar, só revela a cópia do chat. O HUD
+ * revela a sua em revealDiceSoNice(), chamado pelo hook
+ * diceSoNiceRollComplete, com um temporizador de segurança.
  */
 export class CardFeed {
   /** @type {string[]} ids das mensagens, mais recente primeiro */
@@ -74,12 +79,12 @@ export class CardFeed {
     const mode = CardFeed.rollMode(message)
     const hidden = { show: false, masked: false, mode }
     if (!message.visible) return hidden
+    // O mestre vê todas as rolagens, com resultado.
+    if (game.user.isGM) return { show: true, masked: false, mode }
     const isAuthor = message.isAuthor ?? (message.author?.id === game.user.id)
     const whispered = (message.whisper ?? []).includes(game.user.id)
-    // "Só para mim": quem rolou (e quem o CoC7 incluiu no sussurro); nem o
-    // mestre vê, como no chat.
+    // "Só para mim": quem rolou (e quem o CoC7 incluiu no sussurro).
     if (mode === ROLL_MODES.self) return (isAuthor || whispered) ? { show: true, masked: false, mode } : hidden
-    if (game.user.isGM) return { show: true, masked: false, mode }
     switch (mode) {
       case ROLL_MODES.public:
         return { show: true, masked: false, mode }
@@ -117,6 +122,7 @@ export class CardFeed {
       if (!el) continue
       this.order.push(message.id)
       this.elements.set(message.id, el)
+      this.#watchDiceSoNice(message, el)
     }
     this.onChange()
   }
@@ -127,6 +133,7 @@ export class CardFeed {
     if (!el) return
     this.order = [message.id, ...this.order.filter(id => id !== message.id)]
     this.elements.set(message.id, el)
+    this.#watchDiceSoNice(message, el)
     this.#trim()
     this.onChange()
   }
@@ -138,6 +145,7 @@ export class CardFeed {
     if (!el) return
     const old = this.elements.get(message.id)
     this.elements.set(message.id, el)
+    this.#watchDiceSoNice(message, el)
     // Substitui no lugar para não re-renderizar o HUD inteiro.
     if (old?.isConnected) old.replaceWith(el)
     else this.onChange()
@@ -180,6 +188,34 @@ export class CardFeed {
   newRound () {
     this.since = Date.now()
     this.clear()
+  }
+
+  /**
+   * Dice So Nice terminou de rolar: mostra o resultado escondido no card.
+   * @param {string} id  id da mensagem
+   */
+  revealDiceSoNice (id) {
+    const el = this.elements.get(id)
+    if (!el) return
+    el.classList.remove('dsn-hide')
+    el.querySelectorAll('.dsn-hide').forEach(e => e.classList.remove('dsn-hide'))
+  }
+
+  /**
+   * Segurança: se o hook do Dice So Nice não chegar (ex.: animação pulada),
+   * revela quando a mensagem não estiver mais animando.
+   */
+  #watchDiceSoNice (message, el) {
+    if (!el.matches('.dsn-hide') && !el.querySelector('.dsn-hide')) return
+    let tries = 0
+    const timer = setInterval(() => {
+      tries++
+      if (this.elements.get(message.id) !== el) return clearInterval(timer)
+      if (!message._dice3danimating || tries >= 30) {
+        clearInterval(timer)
+        this.revealDiceSoNice(message.id)
+      }
+    }, 1000)
   }
 
   /** @returns {HTMLElement[]} */

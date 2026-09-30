@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2.4
+
+### Correções
+
+- **Resultados sumindo dos cartões do HUD com o Dice So Nice**: enquanto os dados 3D rolam, o Dice So Nice esconde o resultado e, ao terminar, só o revelava no chat. Agora o HUD também revela o resultado quando a animação acaba (por exemplo, o resultado do disparo no cartão de ataque à distância).
+- **O mestre vê todas as rolagens** no HUD, inclusive as "só para mim". Para os jogadores nada muda: o resultado aparece para todos, exceto em rolagens privadas ou cegas.
+
 ## v0.2.3
 
 ### Mudanças
