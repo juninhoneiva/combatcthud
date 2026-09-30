@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.2.3
+
+### Mudanças
+
+- **Skin Pulp refeita no estilo Weird Tales**, com o clima das revistas de horror dos anos 30 no lugar do visual de quadrinho:
+  - papel de polpa amarelado e manchado, tinta preta, vermelho-sangue, ocre e um verde doentio no alvo;
+  - tipografia de impressão antiga (IM Fell English), com vinhetas ❦ nos títulos de seção;
+  - retratos em camafeus ovais, em sépia;
+  - mais discreta, com as mesmas medidas das outras skins.
+
 ## v0.2.2
 
 ### Novidades

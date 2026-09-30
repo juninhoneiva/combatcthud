@@ -78,7 +78,7 @@ A cada rodada o HUD limpa os cartões antigos e fica só com os da jogada atual.
 | Skin | Estilo |
 | --- | --- |
 | **Anos 20** | Art Déco em preto e dourado |
-| **Pulp** | Capa de revista pulp dos anos 30 |
+| **Pulp** | Revista de horror pulp dos anos 30, no estilo Weird Tales |
 | **Moderna** | HUD tático de vidro fosco |
 
 <p>
@@ -117,6 +117,6 @@ Português (Brasil) e inglês.
 
 Código sob licença [MIT](LICENSE).
 
-Fontes incluídas: Limelight, Poiret One, Bangers, Alfa Slab One, Rajdhani e Inter (SIL Open Font License 1.1) e Special Elite (Apache 2.0). As licenças estão em [`fonts/`](fonts).
+Fontes incluídas: Limelight, Poiret One, IM Fell English, Rajdhani e Inter (SIL Open Font License 1.1) e Special Elite (Apache 2.0). As licenças estão em [`fonts/`](fonts).
 
 Call of Cthulhu é marca registrada da Chaosium Inc. Este módulo não é afiliado à Chaosium.

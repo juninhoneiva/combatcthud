@@ -1,8 +1,8 @@
 {
   "id": "combatcthud",
   "title": "Combat Cthulhu HUD",
-  "description": "HUD de combate para Call of Cthulhu 7ª Edição (sistema CoC7): ordem de iniciativa, PV/PM/SAN/Sorte, ações rápidas, dano rápido e os cards de combate do sistema jogáveis direto no HUD. Skins: Anos 20 (Art Déco), Pulp e Moderna.",
-  "version": "0.2.2",
+  "description": "HUD de combate para Call of Cthulhu 7ª Edição (sistema CoC7): ordem de iniciativa, PV/PM/SAN/Sorte, ações rápidas, dano rápido e os cards de combate do sistema jogáveis direto no HUD. Skins: Anos 20 (Art Déco), Pulp (Weird Tales) e Moderna.",
+  "version": "0.2.3",
   "authors": [
     {
       "name": "juninhoneiva",
