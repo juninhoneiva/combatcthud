@@ -1,6 +1,9 @@
 name: Release
 
-# Publique um release no GitHub com uma tag de versão (ex.: v0.1.0).
+# Duas formas de publicar uma versão (ex.: v0.1.1):
+#   - criar um Release no GitHub com a tag; ou
+#   - enviar a tag (git tag v0.1.1 && git push origin v0.1.1): o release é
+#     criado automaticamente com as notas da seção correspondente do CHANGELOG.md.
 # Este workflow grava a versão no module.json, gera o module.zip e anexa os
 # dois arquivos ao release. A URL de manifesto para instalar no Foundry é:
 #   https://github.com/juninhoneiva/combatcthud/releases/latest/download/module.json
@@ -8,6 +11,11 @@ name: Release
 on:
   release:
     types: [published]
+  push:
+    tags: ['v*']
+
+concurrency:
+  group: release-${{ github.ref_name }}
 
 permissions:
   contents: write
@@ -18,11 +26,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Tag enviada para um release já criado pela interface: o evento
+      # "release" cuida dele; este run não faz nada.
+      - name: Release já existe?
+        id: guard
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Versão a partir da tag
+        if: steps.guard.outputs.skip != 'true'
         id: version
         run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
       - name: Atualizar module.json
+        if: steps.guard.outputs.skip != 'true'
         env:
           VERSION: ${{ steps.version.outputs.version }}
           REPO: ${{ github.repository }}
@@ -35,12 +58,24 @@ jobs:
           mv module.tmp.json module.json
           cat module.json
 
+      - name: Notas do CHANGELOG
+        if: steps.guard.outputs.skip != 'true'
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          awk -v tag="## $TAG" '$0 == tag {on=1; next} /^## / {on=0} on' CHANGELOG.md > release-notes.md
+          cat release-notes.md
+
       - name: Empacotar
-        run: zip -r module.zip module.json README.md LICENSE scripts styles templates lang fonts
+        if: steps.guard.outputs.skip != 'true'
+        run: zip -r module.zip module.json README.md CHANGELOG.md LICENSE scripts styles templates lang fonts
 
       - name: Anexar ao release
+        if: steps.guard.outputs.skip != 'true'
         uses: softprops/action-gh-release@v2
         with:
+          # Só usado quando o release é criado pelo push da tag.
+          body_path: ${{ github.event_name == 'push' && 'release-notes.md' || '' }}
           files: |
             module.json
             module.zip
