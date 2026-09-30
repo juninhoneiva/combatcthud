@@ -30,7 +30,15 @@ Ative o módulo no mundo. O HUD aparece quando existe um combate na cena.
 
 ## Publicar uma versão
 
-1. Aumente `version` no `module.json` e descreva a versão no `CHANGELOG.md` (seção `## vX.Y.Z`).
+É automático:
+
+1. Aumente `version` no `module.json` e descreva a versão no `CHANGELOG.md`, numa seção `## vX.Y.Z`.
+2. Faça o merge na `main`.
+3. O workflow `.github/workflows/release.yml` cria o release `vX.Y.Z` com as notas do CHANGELOG. Ele também grava a versão no `module.json`, gera o `module.zip` e anexa os dois ao release. O Foundry passa a oferecer a atualização.
+
+Para publicar manualmente, use **Actions → Release → Run workflow**. Se o release da versão já existir, o workflow não faz nada.
+
+## vX.Y.Z`).
 2. Faça o merge na `main`.
 3. Publique de uma destas formas:
    - envie a tag: `git tag vX.Y.Z && git push origin vX.Y.Z`. O release é criado sozinho, com as notas do CHANGELOG;

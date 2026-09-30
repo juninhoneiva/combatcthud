@@ -1,21 +1,29 @@
 name: Release
 
-# Duas formas de publicar uma versão (ex.: v0.1.1):
-#   - criar um Release no GitHub com a tag; ou
-#   - enviar a tag (git tag v0.1.1 && git push origin v0.1.1): o release é
-#     criado automaticamente com as notas da seção correspondente do CHANGELOG.md.
-# Este workflow grava a versão no module.json, gera o module.zip e anexa os
-# dois arquivos ao release. A URL de manifesto para instalar no Foundry é:
+# Publica o módulo como release no GitHub. A versão vem do module.json
+# (tag v<versão>) e as notas vêm da seção "## v<versão>" do CHANGELOG.md.
+#
+# Quando roda:
+#   - push na main que altere o module.json (nova versão entrou): automático;
+#   - "Run workflow" na aba Actions (publicação manual);
+#   - Release criado pela interface do GitHub (só anexa os arquivos).
+# Se o release da versão já existe, nada é feito (exceto quando o próprio
+# evento é a criação do release pela interface: aí só anexa os arquivos).
+#
+# URL de manifesto para instalar no Foundry:
 #   https://github.com/juninhoneiva/combatcthud/releases/latest/download/module.json
 
 on:
+  push:
+    branches: [main]
+    paths: [module.json]
   release:
     types: [published]
-  push:
-    tags: ['v*']
+  workflow_dispatch:
 
 concurrency:
-  group: release-${{ github.ref_name }}
+  group: release
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -26,56 +34,64 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Tag enviada para um release já criado pela interface: o evento
-      # "release" cuida dele; este run não faz nada.
-      - name: Release já existe?
-        id: guard
-        if: github.event_name == 'push'
+      - name: Definir versão e tag
+        id: version
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
         run: |
-          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_EVENT_NAME" = "release" ]; then
+            TAG="$GITHUB_REF_NAME"
+          else
+            TAG="v$(jq -r .version module.json)"
           fi
-
-      - name: Versão a partir da tag
-        if: steps.guard.outputs.skip != 'true'
-        id: version
-        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+          SKIP=false
+          if [ "$GITHUB_EVENT_NAME" != "release" ] && gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $TAG já existe; nada a fazer."
+            SKIP=true
+          fi
+          echo "skip=$SKIP" >> "$GITHUB_OUTPUT"
+          echo "Tag: $TAG (skip=$SKIP)"
 
       - name: Atualizar module.json
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.version.outputs.skip != 'true'
         env:
           VERSION: ${{ steps.version.outputs.version }}
-          REPO: ${{ github.repository }}
-          TAG: ${{ github.ref_name }}
+          TAG: ${{ steps.version.outputs.tag }}
         run: |
           jq --arg v "$VERSION" \
-             --arg m "https://github.com/$REPO/releases/latest/download/module.json" \
-             --arg d "https://github.com/$REPO/releases/download/$TAG/module.zip" \
+             --arg m "https://github.com/$GITHUB_REPOSITORY/releases/latest/download/module.json" \
+             --arg d "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/module.zip" \
              '.version = $v | .manifest = $m | .download = $d' module.json > module.tmp.json
           mv module.tmp.json module.json
           cat module.json
 
       - name: Notas do CHANGELOG
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.version.outputs.skip != 'true'
         env:
-          TAG: ${{ github.ref_name }}
+          TAG: ${{ steps.version.outputs.tag }}
         run: |
           awk -v tag="## $TAG" '$0 == tag {on=1; next} /^## / {on=0} on' CHANGELOG.md > release-notes.md
+          if [ ! -s release-notes.md ]; then
+            echo "Versão $TAG." > release-notes.md
+          fi
           cat release-notes.md
 
       - name: Empacotar
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.version.outputs.skip != 'true'
         run: zip -r module.zip module.json README.md CHANGELOG.md LICENSE scripts styles templates lang fonts
 
-      - name: Anexar ao release
-        if: steps.guard.outputs.skip != 'true'
+      - name: Publicar release
+        if: steps.version.outputs.skip != 'true'
         uses: softprops/action-gh-release@v2
         with:
-          # Só usado quando o release é criado pelo push da tag.
-          body_path: ${{ github.event_name == 'push' && 'release-notes.md' || '' }}
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ github.event_name != 'release' && steps.version.outputs.tag || '' }}
+          target_commitish: ${{ github.sha }}
+          make_latest: true
+          # Release criado pela interface mantém o texto escrito lá.
+          body_path: ${{ github.event_name != 'release' && 'release-notes.md' || '' }}
           files: |
             module.json
             module.zip
