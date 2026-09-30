@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.2.1
+
+### Mudanças
+
+- **Cartões ao lado**: o HUD agora tem duas colunas. Iniciativa, investigador e dano rápido ficam à esquerda, e os cartões do CoC7 à direita, numa coluna mais larga e fácil de ler.
+
+### Correções
+
+- **PV privados**: jogadores só veem os pontos de vida dos próprios investigadores. A barrinha de PV na iniciativa aparece apenas para o mestre e para o dono do personagem.
+- As mensagens do dano rápido, que mostram o PV resultante, agora vão só para o mestre e para o dono do ator atingido.
+
 ## v0.2.0
 
 ### Novidades

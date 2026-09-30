@@ -3,9 +3,7 @@
 HUD de combate para **Call of Cthulhu 7ª Edição** no **Foundry VTT**. Reúne num só painel tudo o que importa na hora da luta: ordem de iniciativa, atributos do investigador, ataques, munição, dano e os próprios cartões de combate do sistema, prontos para usar.
 
 <p>
-  <img src="docs/preview.png" width="280" alt="Skin Anos 20">
-  <img src="docs/preview-pulp.png" width="280" alt="Skin Pulp">
-  <img src="docs/preview-modern.png" width="280" alt="Skin Moderna">
+  <img src="docs/preview.png" alt="Skin Anos 20">
 </p>
 
 ## Requisitos
@@ -35,7 +33,8 @@ Depois, ative o módulo no mundo. O HUD aparece sempre que houver um combate na 
 
 - Barras de **PV, PM, SAN e Sorte**.
 - Condições do CoC7: ferimento grave, morrendo, inconsciente, caído, insanidade temporária, insanidade indefinida e morto. Ligam e desligam com um clique.
-- Mestre e jogadores usam o HUD. Cada jogador vê o próprio investigador; os PNJs aparecem só com nome e retrato.
+- Mestre e jogadores usam o HUD. Cada jogador vê o próprio investigador.
+- **PV privados**: o mestre vê os pontos de vida de todos; cada jogador vê só os dos investigadores que controla. PNJs e outros jogadores aparecem apenas com nome e retrato.
 
 ### Ações rápidas
 
@@ -55,7 +54,7 @@ Depois, ative o módulo no mundo. O HUD aparece sempre que houver um combate na 
 
 ### Cartões do sistema no HUD
 
-Os cartões de combate que o CoC7 envia ao chat aparecem no HUD e **funcionam ali mesmo**:
+Os cartões de combate que o CoC7 envia ao chat aparecem numa coluna à direita do HUD e **funcionam ali mesmo**:
 
 - ataques corpo a corpo e à distância;
 - esquivar, revidar e manobra;
@@ -71,6 +70,11 @@ Opcionalmente, esses cartões podem ser escondidos do chat.
 | **Anos 20** | Art Déco em preto e dourado |
 | **Pulp** | Capa de revista pulp dos anos 30 |
 | **Moderna** | HUD tático de vidro fosco |
+
+<p>
+  <img src="docs/preview-pulp.png" width="420" alt="Skin Pulp">
+  <img src="docs/preview-modern.png" width="420" alt="Skin Moderna">
+</p>
 
 Cada usuário escolhe a sua skin; mestre e jogadores podem usar skins diferentes.
 

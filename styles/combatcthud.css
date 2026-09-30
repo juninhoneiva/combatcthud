@@ -167,6 +167,32 @@
   border-color: var(--cthud-gold);
 }
 
+/* ---------- Corpo em duas colunas: principal | cartões ---------- */
+#combatcthud .cthud-body {
+  display: flex;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+#combatcthud .cthud-main {
+  flex: none;
+  width: 380px;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+#combatcthud .cthud-side {
+  flex: none;
+  width: 420px;
+  padding-top: 4px;
+  border-left: 1px solid var(--cthud-gold-dark);
+}
+#combatcthud .cthud-side.collapsed { width: auto; min-width: 150px; }
+#combatcthud .cthud-side .cthud-cards {
+  flex: 1 1 auto;
+  max-height: calc(100vh - 150px);
+}
+
 /* ---------- Seções ---------- */
 #combatcthud .cthud-section {
   padding: 4px 10px 8px;

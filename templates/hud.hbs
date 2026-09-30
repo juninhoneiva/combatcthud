@@ -33,6 +33,10 @@
     </div>
   </header>
 
+  <div class="cthud-body">
+  {{!-- Coluna principal: iniciativa, investigador e dano --}}
+  <div class="cthud-main">
+
   {{!-- Ordem de iniciativa --}}
   {{#if combat}}
     <section class="cthud-section {{#if collapsed.initiative}}collapsed{{/if}}">
@@ -172,9 +176,11 @@
     </section>
   {{/if}}
 
-  {{!-- Cards originais do sistema --}}
+  </div>
+
+  {{!-- Coluna lateral: cartões originais do sistema --}}
   {{#if showCards}}
-    <section class="cthud-section cthud-cards-section {{#if collapsed.cards}}collapsed{{/if}}">
+    <section class="cthud-section cthud-side cthud-cards-section {{#if collapsed.cards}}collapsed{{/if}}">
       <h3 class="cthud-rule" data-action="cthudToggleSection" data-section="cards">
         <span>{{localize "COMBATCTHUD.Sections.cards"}}{{#if cardCount}} ({{cardCount}}){{/if}}</span>
       </h3>
@@ -190,4 +196,5 @@
       </div>
     </section>
   {{/if}}
+  </div>
 </div>
