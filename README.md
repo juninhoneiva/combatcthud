@@ -8,7 +8,7 @@ HUD de combate para **Foundry VTT v13** com o sistema **Call of Cthulhu 7th Edit
 
 - **Iniciativa**: retratos na ordem do combate, com destaque para quem está no turno. Clique marca o alvo (Shift soma alvos), duplo clique centraliza no token e o botão direito abre a ficha. Mostra a arma de fogo em punho e respeita a regra opcional de iniciativa do CoC7 (nível de sucesso).
 - **Investigador em foco**: barras de PV, PM, SAN e Sorte, além das condições do CoC7 (ferimento grave, morrendo, inconsciente, caído, insanidades e morto). As condições podem ser ligadas e desligadas com um clique.
-- **Ações rápidas**: atacar com cada arma do personagem, usando o fluxo original do CoC7 (corpo a corpo ou à distância, contra o alvo selecionado). Também tem Esquivar, as perícias de Lutar, teste de Sorte, rolar iniciativa e sacar/guardar arma. Com Shift+clique a rolagem sai direto, sem a janela de dificuldade.
+- **Ações rápidas**: atacar com cada arma do personagem, usando o fluxo original do CoC7 (corpo a corpo ou à distância, contra o alvo selecionado). Armas de fogo mostram a munição (ex.: 4/6) e têm botão de **recarregar**: clique enche o pente, Shift+clique põe uma bala e o botão direito tira uma. Também tem Esquivar, as perícias de Lutar, teste de Sorte, rolar iniciativa e sacar/guardar arma. Com Shift+clique a rolagem sai direto, sem a janela de dificuldade.
 - **Dano rápido**: aceita um valor fixo ou uma fórmula (`1d6+1`). Aplica dano com armadura, dano direto ou cura nos alvos selecionados, usando a lógica do CoC7 (ferimento grave, morte etc.).
 - **Cartões do sistema no HUD**: os cartões de combate que o CoC7 envia ao chat aparecem no HUD e **funcionam lá**. Isso vale para ataque corpo a corpo e à distância, esquivar/revidar/manobra, rolar dano, gastar sorte, forçar teste, testes de SAN/CON e testes opostos. Opcionalmente, eles podem ser escondidos do chat.
 - Mestre e jogadores usam o HUD. Cada jogador vê o próprio investigador, e os PNJs aparecem só com nome e retrato.
@@ -30,9 +30,12 @@ Ative o módulo no mundo. O HUD aparece quando existe um combate na cena.
 
 ## Publicar uma versão
 
-1. Altere o código e faça o merge na branch principal.
-2. No GitHub, crie um **Release** com uma tag como `v0.1.0`.
-3. O workflow `.github/workflows/release.yml` grava a versão no `module.json`, gera o `module.zip` e anexa os dois arquivos ao release. O Foundry passa a oferecer a atualização.
+1. Aumente `version` no `module.json` e descreva a versão no `CHANGELOG.md` (seção `## vX.Y.Z`).
+2. Faça o merge na `main`.
+3. Publique de uma destas formas:
+   - envie a tag: `git tag vX.Y.Z && git push origin vX.Y.Z`. O release é criado sozinho, com as notas do CHANGELOG;
+   - ou crie um **Release** no GitHub com a tag `vX.Y.Z`.
+4. O workflow `.github/workflows/release.yml` grava a versão no `module.json`, gera o `module.zip` e anexa os dois ao release. O Foundry passa a oferecer a atualização.
 
 ## Nova skin
 

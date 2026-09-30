@@ -44,7 +44,8 @@
       "weaponTip": "Atacar o alvo selecionado com esta arma",
       "luck": "Sorte",
       "drawGun": "Sacar arma",
-      "holsterGun": "Guardar arma"
+      "holsterGun": "Guardar arma",
+      "reloadTip": "Recarregar: clique = pente cheio · Shift+clique = +1 bala · botão direito = −1 bala"
     },
     "Controls": {
       "toggle": "Mostrar/ocultar HUD de combate",
@@ -112,6 +113,10 @@
         "name": "Jogadores podem usar o dano rápido",
         "hint": "Permite que jogadores apliquem dano/cura, apenas em atores que eles controlam."
       }
+    },
+    "Reload": {
+      "alreadyFull": "{weapon} já está carregada.",
+      "done": "<strong>{name}</strong> recarrega <strong>{weapon}</strong> ({ammo}/{bullets})."
     }
   }
 }
