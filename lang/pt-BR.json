@@ -107,6 +107,13 @@
         "name": "Cartões no HUD",
         "hint": "Quantos cartões de combate do CoC7 (ataques, esquivas, dano, testes) ficam no HUD. 0 desativa."
       },
+      "clearCards": {
+        "name": "Limpar cartões do HUD",
+        "hint": "Quando tirar do HUD os cartões antigos, deixando só os da jogada atual. No chat eles continuam todos.",
+        "round": "A cada rodada",
+        "turn": "A cada turno",
+        "never": "Nunca"
+      },
       "hideCardsInChat": {
         "name": "Esconder do chat os cartões exibidos no HUD",
         "hint": "Durante o combate, os cartões que estão no HUD não aparecem no chat. Ao sair do HUD, eles voltam ao chat."
@@ -119,6 +126,11 @@
     "Reload": {
       "alreadyFull": "{weapon} já está carregada.",
       "done": "<strong>{name}</strong> recarrega <strong>{weapon}</strong> ({ammo}/{bullets})."
+    },
+    "RollModes": {
+      "private": "Privada",
+      "blind": "Cega",
+      "self": "Só para mim"
     }
   }
 }

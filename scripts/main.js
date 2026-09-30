@@ -61,6 +61,17 @@ for (const hook of ['createCombat', 'deleteCombat', 'combatStart']) {
   })
 }
 
+// Limpa os cards do HUD a cada nova rodada (ou turno, conforme a opção).
+Hooks.on('updateCombat', (combat, changed) => {
+  if (!hud || combat !== game.combat) return
+  const mode = getSetting('clearCards')
+  const newRound = 'round' in changed
+  const newTurn = 'turn' in changed
+  if ((mode === 'round' && newRound) || (mode === 'turn' && (newRound || newTurn))) {
+    hud.cards.newRound()
+  }
+})
+
 for (const hook of [
   'updateCombat', 'createCombatant', 'updateCombatant', 'deleteCombatant',
   'canvasReady', 'controlToken', 'targetToken'
@@ -98,7 +109,8 @@ Hooks.on('clearChatLog', () => hud?.cards.clear())
 // Opcional: esconde do chat os cards que já estão no HUD.
 Hooks.on('renderChatMessageHTML', (message, html) => {
   if (!hud?.rendered || !game.combat || !getSetting('hideCardsInChat') || getSetting('maxCards') <= 0) return
-  if (!CardFeed.isRelevant(message) || hud.cards.dismissed.has(message.id)) return
+  // Só esconde do chat o que este usuário também vê no HUD.
+  if (!CardFeed.canShow(message) || hud.cards.dismissed.has(message.id)) return
   // Cards já no HUD ou recém-criados (que o HUD está adicionando agora).
   const isNew = Date.now() - (message.timestamp ?? 0) < 10000
   if (hud.cards.elements.has(message.id) || isNew) {

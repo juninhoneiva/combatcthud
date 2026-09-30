@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.2.2
+
+### Mudanças
+
+- **Cartões respeitam o tipo de rolagem**:
+  - **pública**: todos veem, com os resultados dos dados já abertos;
+  - **privada**: só o mestre e quem rolou;
+  - **cega**: o mestre vê tudo; quem rolou vê o cartão sem os resultados; os demais não veem;
+  - **só para mim**: só quem rolou, nem o mestre.
+  - Cartões não públicos ganham um selo indicando o tipo de rolagem.
+- **Cartões limpos a cada rodada**: o HUD mostra só os cartões da rodada atual, e no chat continuam todos. A nova opção **Limpar cartões do HUD** permite limpar a cada rodada (padrão), a cada turno ou nunca.
+
 ## v0.2.1
 
 ### Mudanças

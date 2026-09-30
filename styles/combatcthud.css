@@ -607,6 +607,27 @@
   border: none;
 }
 #combatcthud .cthud-card-dismiss:hover { color: var(--cthud-active); }
+/* Selo do tipo de rolagem (privada / cega / só para mim) */
+#combatcthud .cthud-roll-mode {
+  position: absolute;
+  top: 3px;
+  right: 24px;
+  z-index: 3;
+  padding: 1px 6px;
+  font-family: var(--cthud-font-label);
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: #5b4a35;
+  border-radius: 3px;
+  pointer-events: none;
+}
+#combatcthud .cthud-roll-mode-gmroll { background: #3f5a7a; }
+#combatcthud .cthud-roll-mode-blindroll { background: #6b2a6b; }
+#combatcthud .cthud-roll-mode-selfroll { background: #4a5a3a; }
+#combatcthud .cthud-card.cthud-masked .dice-total { letter-spacing: 2px; }
 #combatcthud .cthud-link {
   align-self: center;
   margin-top: 4px;

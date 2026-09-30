@@ -61,7 +61,16 @@ Os cartões de combate que o CoC7 envia ao chat aparecem numa coluna à direita 
 - rolar dano, gastar sorte e forçar teste;
 - testes de SAN, de CON e opostos.
 
-Opcionalmente, esses cartões podem ser escondidos do chat.
+Os cartões respeitam o tipo de rolagem:
+
+| Rolagem | Quem vê no HUD |
+| --- | --- |
+| Pública | Todos, com os resultados dos dados abertos |
+| Privada | O mestre e quem rolou |
+| Cega | O mestre; quem rolou vê o cartão sem os resultados |
+| Só para mim | Apenas quem rolou (nem o mestre) |
+
+A cada rodada o HUD limpa os cartões antigos e fica só com os da jogada atual. No chat eles continuam todos. Opcionalmente, os cartões exibidos no HUD podem ser escondidos do chat.
 
 ### Skins
 
@@ -94,6 +103,7 @@ Em **Configurações → Combat Cthulhu HUD**:
 | Somente durante combate | Mostra o HUD apenas com um encontro ativo na cena | Ligado |
 | Visual | Skin do HUD | Anos 20 |
 | Cartões no HUD | Quantos cartões do CoC7 ficam no HUD (0 desativa) | 3 |
+| Limpar cartões do HUD | Tira do HUD os cartões antigos a cada rodada, a cada turno ou nunca | A cada rodada |
 | Esconder do chat os cartões exibidos no HUD | Evita ver o mesmo cartão duas vezes | Desligado |
 | Jogadores podem usar o dano rápido | Libera o dano rápido aos jogadores, só nos atores deles (opção do mundo) | Desligado |
 

@@ -43,6 +43,20 @@ export function registerSettings (onChange) {
     onChange
   })
 
+  game.settings.register(MODULE_ID, 'clearCards', {
+    name: 'COMBATCTHUD.Settings.clearCards.name',
+    hint: 'COMBATCTHUD.Settings.clearCards.hint',
+    scope: 'client',
+    config: true,
+    type: String,
+    choices: {
+      round: 'COMBATCTHUD.Settings.clearCards.round',
+      turn: 'COMBATCTHUD.Settings.clearCards.turn',
+      never: 'COMBATCTHUD.Settings.clearCards.never'
+    },
+    default: 'round'
+  })
+
   game.settings.register(MODULE_ID, 'hideCardsInChat', {
     name: 'COMBATCTHUD.Settings.hideCardsInChat.name',
     hint: 'COMBATCTHUD.Settings.hideCardsInChat.hint',
