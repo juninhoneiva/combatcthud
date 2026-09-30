@@ -432,7 +432,43 @@
   font-family: var(--cthud-font-body);
   font-size: 12px;
 }
-#combatcthud .cthud-weapon { grid-column: span 2; }
+#combatcthud .cthud-weapon-row {
+  grid-column: span 2;
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+}
+#combatcthud .cthud-weapon { flex: 1; min-width: 0; }
+#combatcthud .cthud-reload {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 30px;
+  padding: 0 7px;
+  color: var(--cthud-gold-light);
+  background: linear-gradient(180deg, rgba(201, 162, 74, 0.12), rgba(0, 0, 0, 0.25));
+  border: 1px solid var(--cthud-gold-dark);
+  border-radius: 0;
+  font-family: var(--cthud-font-label);
+  font-weight: bold;
+  font-size: 13px;
+}
+#combatcthud .cthud-reload small { color: var(--cthud-ink-dim); font-size: 10px; }
+#combatcthud .cthud-reload:hover {
+  border-color: var(--cthud-gold-light);
+  box-shadow: 0 0 6px rgba(201, 162, 74, 0.5);
+}
+#combatcthud .cthud-reload.full > i { opacity: 0.4; }
+#combatcthud .cthud-reload.empty {
+  color: #fff;
+  background: var(--cthud-active);
+  border-color: #e05a4f;
+  animation: cthud-pulse 1.4s ease-in-out infinite;
+}
+@keyframes cthud-pulse {
+  50% { box-shadow: 0 0 8px rgba(224, 90, 79, 0.9); }
+}
 #combatcthud .cthud-action:hover {
   border-color: var(--cthud-gold-light);
   background: linear-gradient(180deg, rgba(201, 162, 74, 0.35), rgba(0, 0, 0, 0.2));

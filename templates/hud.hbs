@@ -105,13 +105,22 @@
 
         <div class="cthud-actions">
           {{#each actor.weapons}}
-            <button type="button" class="cthud-action cthud-weapon" data-action="cthudWeapon" data-item-id="{{id}}"
-                    data-tooltip="{{localize 'COMBATCTHUD.Actions.weaponTip'}}">
-              <img src="{{img}}" alt="">
-              <span class="cthud-action-name">{{name}}</span>
-              <span class="cthud-action-meta">{{#if skill}}{{skill}}%{{/if}}{{#if damage}} · {{damage}}{{/if}}</span>
-              <i class="cthud-action-kind fa-solid {{#if ranged}}fa-gun{{else}}fa-khanda{{/if}}"></i>
-            </button>
+            <div class="cthud-weapon-row">
+              <button type="button" class="cthud-action cthud-weapon" data-action="cthudWeapon" data-item-id="{{id}}"
+                      data-tooltip="{{localize 'COMBATCTHUD.Actions.weaponTip'}}">
+                <img src="{{img}}" alt="">
+                <span class="cthud-action-name">{{name}}</span>
+                <span class="cthud-action-meta">{{#if skill}}{{skill}}%{{/if}}{{#if damage}} · {{damage}}{{/if}}</span>
+                <i class="cthud-action-kind fa-solid {{#if ranged}}fa-gun{{else}}fa-khanda{{/if}}"></i>
+              </button>
+              {{#if reloadable}}
+                <button type="button" class="cthud-reload {{#unless ammo}}empty{{/unless}} {{#if full}}full{{/if}}" data-action="cthudReload" data-item-id="{{id}}"
+                        data-tooltip="{{localize 'COMBATCTHUD.Actions.reloadTip'}}">
+                  <i class="fa-solid fa-rotate-right"></i>
+                  <span class="cthud-ammo">{{ammo}}<small>/{{bullets}}</small></span>
+                </button>
+              {{/if}}
+            </div>
           {{/each}}
           {{#each actor.skills}}
             <button type="button" class="cthud-action cthud-skill" data-action="cthudSkill" data-uuid="{{uuid}}">

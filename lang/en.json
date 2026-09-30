@@ -44,7 +44,8 @@
       "weaponTip": "Attack the selected target with this weapon",
       "luck": "Luck",
       "drawGun": "Draw gun",
-      "holsterGun": "Holster gun"
+      "holsterGun": "Holster gun",
+      "reloadTip": "Reload: click = full reload · Shift+click = +1 round · right click = −1 round"
     },
     "Controls": {
       "toggle": "Show/hide combat HUD",
@@ -112,6 +113,10 @@
         "name": "Players can use quick damage",
         "hint": "Lets players apply damage/healing, only to actors they own."
       }
+    },
+    "Reload": {
+      "alreadyFull": "{weapon} is already fully loaded.",
+      "done": "<strong>{name}</strong> reloads <strong>{weapon}</strong> ({ammo}/{bullets})."
     }
   }
 }

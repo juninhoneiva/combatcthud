@@ -29,6 +29,7 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
       cthudRollInitiative: CombatCthulhuHUD.#onRollInitiative,
       cthudToggleGun: CombatCthulhuHUD.#onToggleGun,
       cthudWeapon: CombatCthulhuHUD.#onWeapon,
+      cthudReload: CombatCthulhuHUD.#onReload,
       cthudSkill: CombatCthulhuHUD.#onSkill,
       cthudLuck: CombatCthulhuHUD.#onLuck,
       cthudCondition: CombatCthulhuHUD.#onCondition,
@@ -202,6 +203,15 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
       })
     }
 
+    // Botão direito no recarregar: gasta/remove uma bala.
+    el.querySelectorAll('.cthud-reload').forEach(btn => {
+      btn.addEventListener('contextmenu', async (event) => {
+        event.preventDefault()
+        const weapon = this.focusActor?.items.get(btn.dataset.itemId)
+        if (weapon?.isOwner) await weapon.system.shootAmmunition(1)
+      })
+    })
+
     this.#bindDrag()
     this.#bindInitiative()
   }
@@ -306,6 +316,28 @@ export class CombatCthulhuHUD extends HandlebarsApplicationMixin(ApplicationV2) 
     const actor = this.focusActor
     if (!actor) return
     actor.weaponCheck({ id: target.dataset.itemId }, event.shiftKey)
+  }
+
+  /**
+   * Recarregar arma (mesma lógica da ficha do CoC7):
+   * clique = pente cheio · Shift+clique = +1 bala · botão direito = −1 bala.
+   */
+  static async #onReload (event, target) {
+    const actor = this.focusActor
+    const weapon = actor?.items.get(target.dataset.itemId)
+    if (!weapon?.isOwner || weapon.type !== 'weapon') return
+    if (event.shiftKey) return weapon.system.addAmmunition()
+    const before = parseInt(weapon.system.ammo ?? 0, 10) || 0
+    const max = parseInt(weapon.system.bullets ?? 0, 10) || 0
+    if (before >= max) {
+      ui.notifications.info(game.i18n.format('COMBATCTHUD.Reload.alreadyFull', { weapon: weapon.name }))
+      return
+    }
+    await weapon.system.reload()
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor }),
+      content: `<p><i class="fa-solid fa-rotate-right"></i> ${game.i18n.format('COMBATCTHUD.Reload.done', { name: actor.name, weapon: weapon.name, ammo: max, bullets: max })}</p>`
+    })
   }
 
   static #onSkill (event, target) {

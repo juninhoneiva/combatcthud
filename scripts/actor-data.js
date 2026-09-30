@@ -61,13 +61,20 @@ export function getWeapons (actor) {
     .filter(i => i.type === 'weapon')
     .map(w => {
       const skill = actor.items.get(w.system.skill?.main?.id)
+      const bullets = parseInt(w.system.bullets ?? 0, 10) || 0
+      const ammo = parseInt(w.system.ammo ?? 0, 10) || 0
       return {
         id: w.id,
         name: w.name,
         img: w.img,
         ranged: !!w.system.properties?.rngd,
         skill: skill?.system?.value ?? null,
-        damage: w.system.range?.normal?.damage ?? ''
+        damage: w.system.range?.normal?.damage ?? '',
+        // Armas com capacidade (system.bullets) têm munição (system.ammo).
+        reloadable: bullets > 0,
+        bullets,
+        ammo,
+        full: ammo >= bullets
       }
     })
     .sort((a, b) => a.name.localeCompare(b.name))
