@@ -40,7 +40,8 @@ export const BARS = ['hp', 'mp', 'san', 'lck']
  */
 export const SKINS = {
   noir20: 'COMBATCTHUD.Skins.noir20',
-  pulp: 'COMBATCTHUD.Skins.pulp'
+  pulp: 'COMBATCTHUD.Skins.pulp',
+  modern: 'COMBATCTHUD.Skins.modern'
 }
 
 /**

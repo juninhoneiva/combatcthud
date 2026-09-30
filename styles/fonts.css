@@ -1,4 +1,4 @@
-/* Fontes das skins (Anos 20 e Pulp) — licenças em fonts/LICENSE-*.txt */
+/* Fontes das skins (Anos 20, Pulp e Moderna) — licenças em fonts/LICENSE-*.txt */
 @font-face {
   font-family: "CTHUD Limelight";
   src: url("../fonts/Limelight.woff2") format("woff2");
@@ -31,6 +31,34 @@
   font-family: "CTHUD Alfa Slab One";
   src: url("../fonts/AlfaSlabOne.woff2") format("woff2");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CTHUD Rajdhani";
+  src: url("../fonts/Rajdhani-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CTHUD Rajdhani";
+  src: url("../fonts/Rajdhani-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CTHUD Inter";
+  src: url("../fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CTHUD Inter";
+  src: url("../fonts/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }

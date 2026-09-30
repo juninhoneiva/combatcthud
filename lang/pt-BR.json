@@ -87,7 +87,8 @@
     },
     "Skins": {
       "noir20": "Anos 20 (Art Déco)",
-      "pulp": "Pulp (revista anos 30)"
+      "pulp": "Pulp (revista anos 30)",
+      "modern": "Moderna (HUD tático)"
     },
     "Settings": {
       "enabled": {
