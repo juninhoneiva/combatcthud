@@ -1,68 +1,106 @@
 # Combat Cthulhu HUD
 
-HUD de combate para **Foundry VTT v13** com o sistema **Call of Cthulhu 7th Edition (CoC7) 8.14+**, com visual retrô dos anos 20 (Art Déco).
+HUD de combate para **Call of Cthulhu 7ª Edição** no **Foundry VTT**. Reúne num só painel tudo o que importa na hora da luta: ordem de iniciativa, atributos do investigador, ataques, munição, dano e os próprios cartões de combate do sistema, prontos para usar.
 
-<img src="docs/preview.png" width="380" alt="Prévia do HUD (dados fictícios)">
+<p>
+  <img src="docs/preview.png" width="280" alt="Skin Anos 20">
+  <img src="docs/preview-pulp.png" width="280" alt="Skin Pulp">
+  <img src="docs/preview-modern.png" width="280" alt="Skin Moderna">
+</p>
 
-## O que faz
+## Requisitos
 
-- **Iniciativa**: retratos na ordem do combate, com destaque para quem está no turno. Clique marca o alvo (Shift soma alvos), duplo clique centraliza no token e o botão direito abre a ficha. Mostra a arma de fogo em punho e respeita a regra opcional de iniciativa do CoC7 (nível de sucesso).
-- **Investigador em foco**: barras de PV, PM, SAN e Sorte, além das condições do CoC7 (ferimento grave, morrendo, inconsciente, caído, insanidades e morto). As condições podem ser ligadas e desligadas com um clique.
-- **Ações rápidas**: atacar com cada arma do personagem, usando o fluxo original do CoC7 (corpo a corpo ou à distância, contra o alvo selecionado). Armas de fogo mostram a munição (ex.: 4/6) e têm botão de **recarregar**: clique enche o pente, Shift+clique põe uma bala e o botão direito tira uma. Também tem Esquivar, as perícias de Lutar, teste de Sorte, rolar iniciativa e sacar/guardar arma. Com Shift+clique a rolagem sai direto, sem a janela de dificuldade.
-- **Dano rápido**: aceita um valor fixo ou uma fórmula (`1d6+1`). Aplica dano com armadura, dano direto ou cura nos alvos selecionados, usando a lógica do CoC7 (ferimento grave, morte etc.).
-- **Cartões do sistema no HUD**: os cartões de combate que o CoC7 envia ao chat aparecem no HUD e **funcionam lá**. Isso vale para ataque corpo a corpo e à distância, esquivar/revidar/manobra, rolar dano, gastar sorte, forçar teste, testes de SAN/CON e testes opostos. Opcionalmente, eles podem ser escondidos do chat.
-- Mestre e jogadores usam o HUD. Cada jogador vê o próprio investigador, e os PNJs aparecem só com nome e retrato.
-- Sistema de **skins**: por enquanto só existe "Anos 20". Novas skins são só um bloco de variáveis CSS.
+- Foundry VTT **v13**
+- Sistema **Call of Cthulhu 7th Edition (CoC7)** 8.14 ou superior
 
 ## Instalação
 
-No Foundry: **Add-on Modules → Install Module**. Cole a URL de manifesto:
+Em **Add-on Modules → Install Module**, cole a URL de manifesto:
 
 ```
 https://github.com/juninhoneiva/combatcthud/releases/latest/download/module.json
 ```
 
-Ative o módulo no mundo. O HUD aparece quando existe um combate na cena.
+Depois, ative o módulo no mundo. O HUD aparece sempre que houver um combate na cena.
+
+## Recursos
+
+### Iniciativa
+
+- Retratos dos combatentes na ordem do turno, com destaque para quem está agindo.
+- **Clique** marca o alvo (**Shift+clique** soma alvos), **duplo clique** centraliza no token e **botão direito** abre a ficha.
+- Mostra quem está com arma de fogo em punho e respeita a regra opcional de iniciativa do CoC7 (nível de sucesso).
+
+### Investigador
+
+- Barras de **PV, PM, SAN e Sorte**.
+- Condições do CoC7: ferimento grave, morrendo, inconsciente, caído, insanidade temporária, insanidade indefinida e morto. Ligam e desligam com um clique.
+- Mestre e jogadores usam o HUD. Cada jogador vê o próprio investigador; os PNJs aparecem só com nome e retrato.
+
+### Ações rápidas
+
+- **Atacar** com cada arma do personagem, usando o fluxo original do CoC7 (corpo a corpo ou à distância, contra o alvo selecionado).
+- **Munição**: armas de fogo mostram as balas no pente (ex.: `4/6`).
+  - Clique no botão de recarregar enche o pente e anuncia no chat.
+  - Shift+clique põe uma bala.
+  - Botão direito tira uma bala.
+- **Esquivar**, perícias de **Lutar**, teste de **Sorte**, **rolar iniciativa** e **sacar/guardar arma**.
+- **Shift+clique** em ataques e testes rola direto, sem a janela de dificuldade.
+
+### Dano rápido
+
+- Aceita um valor fixo ou uma fórmula (ex.: `1d6+1`).
+- Três modos: dano com armadura, dano direto e cura.
+- Aplica nos alvos selecionados, usando as regras do CoC7 (ferimento grave, morte etc.).
+
+### Cartões do sistema no HUD
+
+Os cartões de combate que o CoC7 envia ao chat aparecem no HUD e **funcionam ali mesmo**:
+
+- ataques corpo a corpo e à distância;
+- esquivar, revidar e manobra;
+- rolar dano, gastar sorte e forçar teste;
+- testes de SAN, de CON e opostos.
+
+Opcionalmente, esses cartões podem ser escondidos do chat.
+
+### Skins
+
+| Skin | Estilo |
+| --- | --- |
+| **Anos 20** | Art Déco em preto e dourado |
+| **Pulp** | Capa de revista pulp dos anos 30 |
+| **Moderna** | HUD tático de vidro fosco |
+
+Cada usuário escolhe a sua skin; mestre e jogadores podem usar skins diferentes.
+
+## Uso
 
 - **Shift+H** mostra ou oculta o HUD. Também há um botão nos controles de Token.
-- Para mover o HUD, arraste pelo cabeçalho. A posição fica salva.
-- As opções ficam em **Configurações → Combat Cthulhu HUD**.
+- Arraste o HUD pelo cabeçalho para mudá-lo de lugar. A posição fica salva.
+- Clique no título de uma seção para recolhê-la ou expandi-la.
 
-## Publicar uma versão
+## Configurações
 
-É automático:
+Em **Configurações → Combat Cthulhu HUD**:
 
-1. Aumente `version` no `module.json` e descreva a versão no `CHANGELOG.md`, numa seção `## vX.Y.Z`.
-2. Faça o merge na `main`.
-3. O workflow `.github/workflows/release.yml` cria o release `vX.Y.Z` com as notas do CHANGELOG. Ele também grava a versão no `module.json`, gera o `module.zip` e anexa os dois ao release. O Foundry passa a oferecer a atualização.
+| Opção | Descrição | Padrão |
+| --- | --- | --- |
+| Exibir HUD de combate | Liga ou desliga o HUD neste navegador | Ligado |
+| Somente durante combate | Mostra o HUD apenas com um encontro ativo na cena | Ligado |
+| Visual | Skin do HUD | Anos 20 |
+| Cartões no HUD | Quantos cartões do CoC7 ficam no HUD (0 desativa) | 3 |
+| Esconder do chat os cartões exibidos no HUD | Evita ver o mesmo cartão duas vezes | Desligado |
+| Jogadores podem usar o dano rápido | Libera o dano rápido aos jogadores, só nos atores deles (opção do mundo) | Desligado |
 
-Para publicar manualmente, use **Actions → Release → Run workflow**. Se o release da versão já existir, o workflow não faz nada.
+## Idiomas
 
-## vX.Y.Z`).
-2. Faça o merge na `main`.
-3. Publique de uma destas formas:
-   - envie a tag: `git tag vX.Y.Z && git push origin vX.Y.Z`. O release é criado sozinho, com as notas do CHANGELOG;
-   - ou crie um **Release** no GitHub com a tag `vX.Y.Z`.
-4. O workflow `.github/workflows/release.yml` grava a versão no `module.json`, gera o `module.zip` e anexa os dois ao release. O Foundry passa a oferecer a atualização.
+Português (Brasil) e inglês.
 
-## Nova skin
+## Créditos e licença
 
-1. Em `styles/combatcthud.css`, copie o bloco `.combatcthud.skin-noir20 { ... }` com o nome da nova skin, por exemplo `skin-pulp`, e troque as cores e as fontes.
-2. Em `scripts/constants.js`, adicione a skin em `SKINS` e crie a tradução em `lang/*.json` (`COMBATCTHUD.Skins.<id>`).
+Código sob licença [MIT](LICENSE).
 
-## Estrutura
+Fontes incluídas: Limelight, Poiret One, Bangers, Alfa Slab One, Rajdhani e Inter (SIL Open Font License 1.1) e Special Elite (Apache 2.0). As licenças estão em [`fonts/`](fonts).
 
-```
-module.json           manifesto
-scripts/main.js       hooks e inicialização
-scripts/hud.js        aplicação (ApplicationV2) do HUD
-scripts/cards.js      cartões do CoC7 renderizados no HUD
-scripts/actor-data.js leitura de PV/PM/SAN/Sorte, condições, armas e perícias
-templates/hud.hbs     layout
-styles/               visual e fontes
-lang/                 pt-BR e en
-```
-
-## Créditos
-
-Fontes: Limelight e Poiret One (SIL OFL 1.1) e Special Elite (Apache 2.0).
+Call of Cthulhu é marca registrada da Chaosium Inc. Este módulo não é afiliado à Chaosium.

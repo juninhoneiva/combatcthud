@@ -1,0 +1,399 @@
+/* ==========================================================================
+   Skin: Pulp (capa de revista pulp dos anos 30)
+   Papel jornal com retícula, contorno preto grosso, sombra dura deslocada,
+   títulos de quadrinho e cores de gráfica barata.
+   ========================================================================== */
+
+.combatcthud.skin-pulp {
+  --cthud-bg: #f1e2b6;
+  --cthud-bg-2: #f7ebc9;
+  --cthud-gold: #c1121f;
+  --cthud-gold-light: #1a1410;
+  --cthud-gold-dark: #1a1410;
+  --cthud-ink: #1a1410;
+  --cthud-ink-dim: #5b4a35;
+  --cthud-paper: #fbf3dc;
+  --cthud-paper-2: #efdfb2;
+  --cthud-paper-ink: #1a1410;
+  --cthud-active: #c1121f;
+  --cthud-hp: #d62828;
+  --cthud-mp: #1d6fb8;
+  --cthud-san: #2a9d4b;
+  --cthud-lck: #f4a20b;
+  --cthud-pulp-yellow: #ffcc1a;
+  --cthud-pulp-orange: #f77f00;
+  --cthud-pulp-red: #c1121f;
+  --cthud-pulp-teal: #1f7a8c;
+  --cthud-pulp-black: #1a1410;
+  --cthud-shadow: 7px 7px 0 var(--cthud-pulp-black);
+  --cthud-font-title: "CTHUD Bangers", "Bangers", Impact, sans-serif;
+  --cthud-font-label: "CTHUD Alfa Slab One", "Alfa Slab One", Rockwell, serif;
+  --cthud-font-body: "CTHUD Special Elite", "Special Elite", "Courier New", monospace;
+}
+
+/* Retícula (halftone) reaproveitada em vários pontos */
+#combatcthud.skin-pulp {
+  --cthud-halftone: radial-gradient(rgba(26, 20, 16, 0.14) 1px, transparent 1.4px) 0 0 / 6px 6px;
+}
+
+/* ---------- Moldura ---------- */
+#combatcthud.skin-pulp .cthud-frame {
+  background:
+    var(--cthud-halftone),
+    linear-gradient(180deg, var(--cthud-bg-2), var(--cthud-bg));
+  border: 3px solid var(--cthud-pulp-black);
+  outline: none;
+  box-shadow: var(--cthud-shadow);
+  margin: 4px 11px 11px 4px;
+}
+/* Faixa diagonal amarela no canto (selo de capa) */
+#combatcthud.skin-pulp .cthud-frame::before {
+  content: "10¢";
+  top: -3px;
+  left: auto;
+  right: -3px;
+  width: auto;
+  height: auto;
+  padding: 2px 8px;
+  border: 3px solid var(--cthud-pulp-black);
+  background: var(--cthud-pulp-yellow);
+  color: var(--cthud-pulp-red);
+  font-family: var(--cthud-font-title);
+  font-size: 15px;
+  letter-spacing: 1px;
+  transform: translate(35%, -45%) rotate(12deg);
+  z-index: 5;
+}
+#combatcthud.skin-pulp .cthud-frame::after { display: none; }
+
+/* ---------- Cabeçalho: faixa de título da capa ---------- */
+#combatcthud.skin-pulp .cthud-header {
+  padding: 8px 12px 10px;
+  border-bottom: 3px solid var(--cthud-pulp-black);
+  background:
+    radial-gradient(rgba(193, 18, 31, 0.28) 1.4px, transparent 1.8px) 0 0 / 7px 7px,
+    linear-gradient(135deg, var(--cthud-pulp-yellow) 0%, var(--cthud-pulp-orange) 100%);
+}
+#combatcthud.skin-pulp .cthud-sunburst {
+  background: repeating-conic-gradient(from 0deg at 18% 120%,
+    rgba(255, 255, 255, 0.35) 0deg 6deg, transparent 6deg 14deg);
+  -webkit-mask-image: none;
+  mask-image: none;
+  opacity: 0.8;
+}
+#combatcthud.skin-pulp .cthud-title-main {
+  font-size: 30px;
+  line-height: 0.95;
+  letter-spacing: 2px;
+  color: var(--cthud-pulp-red);
+  -webkit-text-stroke: 1.5px var(--cthud-pulp-black);
+  text-shadow: 3px 3px 0 var(--cthud-pulp-black);
+  transform: rotate(-3deg);
+  transform-origin: left center;
+}
+#combatcthud.skin-pulp .cthud-title-main::after { content: "!"; }
+#combatcthud.skin-pulp .cthud-title-sub {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 1px 6px;
+  font-family: var(--cthud-font-label);
+  font-weight: normal;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: var(--cthud-pulp-black);
+  transform: rotate(-3deg);
+  max-width: 100%;
+}
+#combatcthud.skin-pulp .cthud-header-controls button {
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  transform: none;
+  border-radius: 50%;
+  color: var(--cthud-pulp-black);
+  background: #fff;
+  border: 2px solid var(--cthud-pulp-black);
+  box-shadow: 2px 2px 0 var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-header-controls button > i { transform: none; }
+#combatcthud.skin-pulp .cthud-header-controls button:hover {
+  color: #fff;
+  background: var(--cthud-pulp-red);
+  box-shadow: 1px 1px 0 var(--cthud-pulp-black);
+  transform: translate(1px, 1px);
+}
+#combatcthud.skin-pulp .cthud-header-controls .cthud-end-turn {
+  width: auto;
+  padding: 0 10px;
+  border-radius: 0;
+  font-family: var(--cthud-font-title);
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  color: #fff;
+  background: var(--cthud-pulp-red);
+}
+
+/* ---------- Títulos de seção: faixa inclinada ---------- */
+#combatcthud.skin-pulp .cthud-rule {
+  justify-content: flex-start;
+  margin: 6px 0 8px;
+  font-family: var(--cthud-font-title);
+  font-weight: normal;
+  font-size: 19px;
+  letter-spacing: 1.5px;
+  color: #fff;
+}
+#combatcthud.skin-pulp .cthud-rule::before { display: none; }
+#combatcthud.skin-pulp .cthud-rule::after {
+  height: 0;
+  border-top: 3px dotted var(--cthud-pulp-black);
+  border-bottom: none;
+}
+#combatcthud.skin-pulp .cthud-rule span {
+  padding: 1px 12px 0;
+  background: var(--cthud-pulp-teal);
+  border: 2px solid var(--cthud-pulp-black);
+  box-shadow: 3px 3px 0 var(--cthud-pulp-black);
+  transform: skewX(-10deg);
+  text-shadow: 1px 1px 0 var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-rule span::before,
+#combatcthud.skin-pulp .cthud-rule span::after { content: none; }
+#combatcthud.skin-pulp .cthud-rule:hover { color: var(--cthud-pulp-yellow); }
+#combatcthud.skin-pulp .cthud-section.collapsed .cthud-rule { color: #ddd; }
+#combatcthud.skin-pulp .cthud-section.collapsed .cthud-rule span { background: #6d6255; }
+#combatcthud.skin-pulp .cthud-actor .cthud-rule span { background: var(--cthud-pulp-red); }
+#combatcthud.skin-pulp .cthud-actor.is-turn .cthud-rule { color: var(--cthud-pulp-yellow); text-shadow: none; }
+
+#combatcthud.skin-pulp .cthud-hint { color: var(--cthud-ink-dim); }
+
+/* ---------- Iniciativa: retratos em "bolha" com estrela no ativo ---------- */
+#combatcthud.skin-pulp .cthud-portrait {
+  border: 3px solid var(--cthud-pulp-black);
+  border-radius: 50%;
+  clip-path: none;
+  background: var(--cthud-pulp-black);
+  box-shadow: 2px 2px 0 var(--cthud-pulp-black);
+  overflow: hidden;
+}
+#combatcthud.skin-pulp .cthud-portrait img { filter: saturate(1.3) contrast(1.1); }
+#combatcthud.skin-pulp .cthud-combatant.active .cthud-portrait {
+  border-color: var(--cthud-pulp-black);
+  background: var(--cthud-pulp-yellow);
+  box-shadow: 0 0 0 3px var(--cthud-pulp-yellow), 0 0 0 5px var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-combatant.targeted .cthud-portrait {
+  border-color: var(--cthud-pulp-red);
+  box-shadow: 0 0 0 2px var(--cthud-pulp-red);
+}
+#combatcthud.skin-pulp .cthud-combatant.defeated .cthud-portrait img { filter: grayscale(1) contrast(1.4); }
+#combatcthud.skin-pulp .cthud-gun,
+#combatcthud.skin-pulp .cthud-target { color: #fff; }
+#combatcthud.skin-pulp .cthud-init {
+  font-family: var(--cthud-font-title);
+  font-weight: normal;
+  font-size: 15px;
+  color: var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-combatant.active .cthud-init {
+  padding: 0 5px;
+  color: #fff;
+  background: var(--cthud-pulp-red);
+  border: 2px solid var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-init-roll {
+  color: var(--cthud-pulp-black);
+  background: var(--cthud-pulp-yellow);
+  border: 2px solid var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-mini-hp {
+  height: 5px;
+  border: 1px solid var(--cthud-pulp-black);
+  background: #fff;
+}
+
+/* ---------- Investigador ---------- */
+#combatcthud.skin-pulp .cthud-medallion {
+  background: var(--cthud-pulp-yellow);
+  border: 3px solid var(--cthud-pulp-black);
+  box-shadow: 4px 4px 0 var(--cthud-pulp-black);
+  /* estrela/"explosão" de quadrinho */
+  clip-path: polygon(50% 0, 61% 12%, 77% 6%, 80% 22%, 96% 26%, 89% 41%, 100% 54%,
+    86% 63%, 90% 80%, 73% 81%, 65% 96%, 51% 87%, 36% 98%, 29% 82%, 12% 83%,
+    14% 66%, 0 56%, 11% 43%, 3% 27%, 20% 22%, 23% 6%, 39% 12%);
+  border: none;
+  padding: 9px;
+}
+#combatcthud.skin-pulp .cthud-medallion img {
+  border: 3px solid var(--cthud-pulp-black);
+  filter: saturate(1.3) contrast(1.1);
+}
+#combatcthud.skin-pulp .cthud-bar-label {
+  font-family: var(--cthud-font-title);
+  font-weight: normal;
+  font-size: 16px;
+  color: var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-bar-track {
+  height: 14px;
+  background: #fff;
+  border: 2px solid var(--cthud-pulp-black);
+  box-shadow: 2px 2px 0 var(--cthud-pulp-black);
+  transform: skewX(-12deg);
+}
+#combatcthud.skin-pulp .cthud-bar-track::after {
+  background: radial-gradient(rgba(0, 0, 0, 0.22) 1px, transparent 1.4px) 0 0 / 4px 4px;
+}
+#combatcthud.skin-pulp .cthud-bar-fill {
+  background: var(--cthud-bar-color);
+  border-right: 2px solid var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-bar-value {
+  font-family: var(--cthud-font-label);
+  font-size: 14px;
+  color: var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-bar-value small { color: var(--cthud-ink-dim); }
+
+#combatcthud.skin-pulp .cthud-condition {
+  border: 2px solid var(--cthud-pulp-black);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--cthud-pulp-black);
+  opacity: 0.35;
+}
+#combatcthud.skin-pulp .cthud-condition img { filter: grayscale(1) brightness(0.3); }
+#combatcthud.skin-pulp .cthud-condition.active {
+  opacity: 1;
+  color: #fff;
+  background: var(--cthud-pulp-red);
+  border-color: var(--cthud-pulp-black);
+  box-shadow: 2px 2px 0 var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-condition.active img { filter: brightness(0) invert(1); }
+
+/* ---------- Botões de ação: blocos de gráfica ---------- */
+#combatcthud.skin-pulp .cthud-action,
+#combatcthud.skin-pulp .cthud-reload {
+  color: var(--cthud-pulp-black);
+  background: #fff;
+  border: 2px solid var(--cthud-pulp-black);
+  box-shadow: 3px 3px 0 var(--cthud-pulp-black);
+  margin: 0 3px 3px 0;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+#combatcthud.skin-pulp .cthud-weapon {
+  background:
+    radial-gradient(rgba(247, 127, 0, 0.35) 1px, transparent 1.5px) 0 0 / 5px 5px,
+    #fff5d6;
+}
+#combatcthud.skin-pulp .cthud-action:hover,
+#combatcthud.skin-pulp .cthud-reload:hover {
+  border-color: var(--cthud-pulp-black);
+  background: var(--cthud-pulp-yellow);
+  box-shadow: 1px 1px 0 var(--cthud-pulp-black);
+  transform: translate(2px, 2px);
+}
+#combatcthud.skin-pulp .cthud-action:active,
+#combatcthud.skin-pulp .cthud-reload:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+#combatcthud.skin-pulp .cthud-action.active {
+  color: #fff;
+  background: var(--cthud-pulp-red);
+  border-color: var(--cthud-pulp-black);
+}
+#combatcthud.skin-pulp .cthud-action > i { color: var(--cthud-pulp-red); }
+#combatcthud.skin-pulp .cthud-action.active > i { color: #fff; }
+#combatcthud.skin-pulp .cthud-action img { border: 2px solid var(--cthud-pulp-black); border-radius: 50%; }
+#combatcthud.skin-pulp .cthud-action-meta {
+  font-family: var(--cthud-font-title);
+  font-weight: normal;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: var(--cthud-pulp-red);
+}
+#combatcthud.skin-pulp .cthud-action.active .cthud-action-meta { color: #fff; }
+#combatcthud.skin-pulp .cthud-reload {
+  font-family: var(--cthud-font-title);
+  font-weight: normal;
+  font-size: 16px;
+}
+#combatcthud.skin-pulp .cthud-reload small { color: var(--cthud-ink-dim); }
+#combatcthud.skin-pulp .cthud-reload.empty {
+  color: var(--cthud-pulp-black);
+  background: var(--cthud-pulp-yellow);
+  border-color: var(--cthud-pulp-black);
+  animation: cthud-pulp-shake 0.9s ease-in-out infinite;
+}
+#combatcthud.skin-pulp .cthud-reload.empty small { color: var(--cthud-pulp-black); }
+@keyframes cthud-pulp-shake {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-4deg); }
+  40% { transform: rotate(4deg); }
+  60% { transform: rotate(-2deg); }
+}
+
+/* ---------- Dano rápido ---------- */
+#combatcthud.skin-pulp .cthud-damage-row input {
+  font-family: var(--cthud-font-label);
+  color: var(--cthud-pulp-black);
+  background: #fff;
+  border: 2px solid var(--cthud-pulp-black);
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.15);
+}
+#combatcthud.skin-pulp .cthud-damage-row button {
+  color: #fff;
+  background: var(--cthud-pulp-red);
+  border: 2px solid var(--cthud-pulp-black);
+  box-shadow: 3px 3px 0 var(--cthud-pulp-black);
+  font-family: var(--cthud-font-title);
+  font-weight: normal;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin: 0 3px 3px 0;
+}
+#combatcthud.skin-pulp .cthud-damage-row button[data-mode="direct"] { background: var(--cthud-pulp-orange); }
+#combatcthud.skin-pulp .cthud-damage-row button[data-mode="heal"] { background: var(--cthud-san); }
+#combatcthud.skin-pulp .cthud-damage-row button:hover {
+  box-shadow: 1px 1px 0 var(--cthud-pulp-black);
+  transform: translate(2px, 2px);
+}
+
+/* ---------- Cartões: páginas da revista ---------- */
+#combatcthud.skin-pulp .cthud-cards {
+  background:
+    var(--cthud-halftone),
+    linear-gradient(180deg, #e9d9ad, #dcc794);
+  border: 2px solid var(--cthud-pulp-black);
+  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.12);
+}
+#combatcthud.skin-pulp .cthud-card-list > .chat-message {
+  background: var(--cthud-paper);
+  border: 2px solid var(--cthud-pulp-black);
+  box-shadow: 4px 4px 0 var(--cthud-pulp-black);
+  margin: 0 4px 4px 0;
+}
+#combatcthud.skin-pulp .cthud-card-list > .chat-message:first-child {
+  border-color: var(--cthud-pulp-black);
+  box-shadow: 4px 4px 0 var(--cthud-pulp-red);
+}
+#combatcthud.skin-pulp .cthud-card-list .message-sender {
+  font-family: var(--cthud-font-title);
+  font-weight: normal;
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: var(--cthud-pulp-red);
+}
+#combatcthud.skin-pulp .cthud-card-dismiss { color: var(--cthud-pulp-black); }
+#combatcthud.skin-pulp .cthud-card-dismiss:hover { color: var(--cthud-pulp-red); }
+#combatcthud.skin-pulp .cthud-link {
+  font-family: var(--cthud-font-label);
+  color: var(--cthud-ink-dim);
+}
+#combatcthud.skin-pulp .cthud-link:hover { color: var(--cthud-pulp-red); }
+#combatcthud.skin-pulp .cthud-cards,
+#combatcthud.skin-pulp .cthud-initiative { scrollbar-color: var(--cthud-pulp-black) transparent; }

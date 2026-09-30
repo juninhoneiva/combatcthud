@@ -86,7 +86,9 @@
       "toggle": "Show/hide combat HUD"
     },
     "Skins": {
-      "noir20": "1920s (Art Deco)"
+      "noir20": "1920s (Art Deco)",
+      "pulp": "Pulp (1930s magazine)",
+      "modern": "Modern (tactical HUD)"
     },
     "Settings": {
       "enabled": {
