@@ -1,0 +1,54 @@
+name: Removedor de Fundo (Windows)
+
+# Gera o RemovedorDeFundo.exe (pasta zipada) e o testa no próprio Windows.
+# O .zip fica em Actions → execução → "Artifacts".
+
+on:
+  push:
+    paths:
+      - "removedor-fundo/**"
+      - ".github/workflows/removedor-fundo.yml"
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: removedor-fundo
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: removedor-fundo/requirements.txt
+
+      - name: Dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller==6.*
+
+      - name: Gerar o .exe
+        run: pyinstaller --noconfirm RemovedorDeFundo.spec
+
+      - name: Testar o .exe
+        shell: pwsh
+        run: |
+          python -c "from PIL import Image, ImageDraw; i=Image.new('RGB',(1600,1200),(40,160,220)); ImageDraw.Draw(i).ellipse([400,200,1200,1000],fill=(230,60,40)); i.save('teste.jpg', quality=95)"
+          $p = Start-Process -FilePath dist\RemovedorDeFundo\RemovedorDeFundo.exe `
+                 -ArgumentList '--sem-janela','--modelo','isnet-general-use','--saida','saida-teste','teste.jpg' `
+                 -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "O .exe terminou com código $($p.ExitCode)" }
+          python -c "from PIL import Image; import numpy as np; a=np.asarray(Image.open('saida-teste/teste_sem_fundo.png')); assert a.shape==(1200,1600,4), a.shape; t=(a[...,3]==0).mean(); o=(a[...,3]==255).mean(); print(f'transparente {t:.2f}, opaco {o:.2f}'); assert t>0.4 and o>0.3"
+
+      - name: Compactar
+        shell: pwsh
+        run: Compress-Archive -Path dist\RemovedorDeFundo -DestinationPath RemovedorDeFundo-windows.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RemovedorDeFundo-windows
+          path: removedor-fundo/RemovedorDeFundo-windows.zip
+          retention-days: 90
