@@ -41,7 +41,7 @@ jobs:
                  -ArgumentList '--sem-janela','--modelo','isnet-general-use','--saida','saida-teste','teste.jpg' `
                  -Wait -PassThru
           if ($p.ExitCode -ne 0) { throw "O .exe terminou com código $($p.ExitCode)" }
-          python -c "from PIL import Image; import numpy as np; a=np.asarray(Image.open('saida-teste/teste_sem_fundo.png')); assert a.shape==(1200,1600,4), a.shape; t=(a[...,3]==0).mean(); o=(a[...,3]==255).mean(); print(f'transparente {t:.2f}, opaco {o:.2f}'); assert t>0.4 and o>0.3"
+          python -c "from PIL import Image; import numpy as np; a=np.asarray(Image.open('saida-teste/teste_sem_fundo.png')); assert a.shape==(1200,1600,4), a.shape; t=(a[...,3]==0).mean(); o=(a[...,3]==255).mean(); print(f'transparente {t:.2f}, opaco {o:.2f}'); assert 0.70<t<0.76 and 0.23<o<0.29, 'mascara inesperada'"
 
       - name: Compactar
         shell: pwsh
